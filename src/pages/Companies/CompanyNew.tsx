@@ -21,7 +21,7 @@ export function CompanyNew(){
             <hr />
             <div className="card">
                 <div className="card-header">
-                    <h2>Novo Artigo</h2>
+                    <h2>Nova Empresa</h2>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleSendCompany} className="needs-validation" method="POST">

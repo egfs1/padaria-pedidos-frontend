@@ -34,7 +34,7 @@ export function CompanyEdit() {
             <hr />
             <div className="card">
                 <div className="card-header">
-                    <h2>Novo Artigo</h2>
+                    <h2>Editar Empresa</h2>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleUpdateCompany} className="needs-validation" method="POST">

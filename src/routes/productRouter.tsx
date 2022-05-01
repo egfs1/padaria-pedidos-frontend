@@ -9,7 +9,6 @@ export function ProductRouter() {
             <Route path="/" element={<ProductIndex />}/>
             <Route path="/new" element={<ProductNew />}/>
             <Route path="/edit/:id" element={<ProductEdit />}/>
-            <Route />
         </Routes>
     )
 }
