@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useProduct } from "../../contexts/useProduct"
 import { api } from "../../services/api"
 
 interface IProduct {
@@ -9,14 +10,15 @@ interface IProduct {
 
 export function ProductIndex(){
     const navigate = useNavigate()
-    const [products, setProducts] = useState<IProduct[]>([])
 
+    const {products, setProducts} = useProduct()
+    
     function handleEditProduct(product: IProduct){
         navigate(`/products/edit/${product.id}`, {state: product})
         
     }
 
-    function handleDeleteProduct(product: IProduct){
+    async function handleDeleteProduct(product: IProduct){
         if(window.confirm(`Você tem certeza que deseja excluir o produto ${product.name}?`)){
             api.delete(`/products/delete/${product.id}`).then(() => {
                 const newProducts = products.filter(product_filtered => product_filtered.id !== product.id)
@@ -24,14 +26,7 @@ export function ProductIndex(){
     
             })
         }
-
     }
-
-    useEffect(()=>{
-        api.get('/products').then(response => {
-            setProducts(response.data)
-        })
-    }, [])
 
     return (
         <div className="container-xl">
@@ -49,9 +44,9 @@ export function ProductIndex(){
                     </tr>
                 </thead>
                 <tbody>
-                    {products.map((product, index)=> {
+                    {products.map((product, key)=> {
                         return (
-                            <tr key={index}>
+                            <tr key={key}>
                                 <th>{product.name}</th>
                                 <th>
                                     <button onClick={()=> handleEditProduct(product)} className="btn btn-warning">Editar</button>

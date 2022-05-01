@@ -22,7 +22,7 @@ export function CompanyIndex() {
         
     }
 
-    function handleDeleteCompany(company: ICompany){
+    async function handleDeleteCompany(company: ICompany){
         if(window.confirm(`Você tem certeza que deseja excluir a empresa ${company.name}?`)){
             api.delete(`/companies/delete/${company.id}`).then(() => {
                 const newCompanies = companies.filter(company_filtered => company_filtered.id !== company.id)

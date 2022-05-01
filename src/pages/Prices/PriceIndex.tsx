@@ -30,13 +30,13 @@ export function PriceIndex(){
     }
 
     function handleEditPrice(price: IPrice){
-        navigate(`/products/edit/${price.id}`, {state: price})
+        navigate(`/prices/edit/${price.id}`, {state: price})
         
     }
 
     function handleDeletePrice(price: IPrice){
         if(window.confirm(`Você tem certeza que deseja excluir preço do produto ${price.product.name} da empresa ${price.company.name}?`)){
-            api.delete(`/products/delete/${price.id}`).then(() => {
+            api.delete(`/prices/delete/${price.id}`).then(() => {
                 const newPrices = prices.filter(price_filtered => price_filtered.id !== price.id)
                 setPrices(newPrices)
             })
@@ -57,9 +57,9 @@ export function PriceIndex(){
             <div className="card-header">
                 <h2>Preços</h2>
             </div>
-            {companies.map(company => {
+            {companies.map((company,companyKey) => {
                 return (
-                    <>
+                    <div key={companyKey}>
                         <div className="card mt-4">
                             <div className="card-header">
                                 <h4>{company.name}</h4>
@@ -78,22 +78,24 @@ export function PriceIndex(){
                                 </tr>
                             </thead>
                             <tbody>
-                                {prices.map(price => {
-                                    return (
-                                        <tr>
-                                            <th>{price.company.name}</th>
-                                            <th>{price.product.name}</th>
-                                            <th>{price.price.toFixed(2)}</th>
-                                            <th>
-                                                <button onClick={()=> handleEditPrice(price)} className="btn btn-warning">Editar</button>
-                                                <button onClick={()=> handleDeletePrice(price)} className="btn btn-danger mx-1">Excluir</button>
-                                            </th>
-                                        </tr>
-                                    )
+                                {prices.map((price,priceKey) => {
+                                    if(price.company.name === company.name){
+                                        return (
+                                            <tr key={priceKey}>
+                                                <th>{price.company.name}</th>
+                                                <th>{price.product.name}</th>
+                                                <th>{price.price.toFixed(2)}</th>
+                                                <th>
+                                                    <button onClick={()=> handleEditPrice(price)} className="btn btn-warning">Editar</button>
+                                                    <button onClick={()=> handleDeletePrice(price)} className="btn btn-danger mx-1">Excluir</button>
+                                                </th>
+                                            </tr>
+                                        )   
+                                    }
                                 })}
                             </tbody>
                         </table>
-                    </>
+                    </div>
                 )
             })}
         </div>        
