@@ -1,13 +1,9 @@
 import { FormEvent, useEffect, useState } from "react"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useLocation} from "react-router-dom"
+import { useProduct } from "../../contexts/useProduct"
 import { api } from "../../services/api"
 
 interface ICompany {
-    id: string
-    name: string
-}
-
-interface IProduct {
     id: string
     name: string
 }
@@ -19,8 +15,7 @@ interface ILocationState {
 
 export function PriceNew() {
     const location = useLocation()
-    const navigate = useNavigate()
-    const [products, setProducts] = useState<IProduct[]>([])
+    const {products, setProducts} = useProduct()
     const {state: company} = location as ILocationState
 
     async function handleSendPrice(event: FormEvent){

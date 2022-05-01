@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useCompany } from "../../contexts/useCompany"
 import { api } from "../../services/api"
 
 interface ICompany {
@@ -9,17 +9,10 @@ interface ICompany {
 
 export function CompanyIndex() {
     const navigate = useNavigate()
-    const [companies, setCompanies] = useState<ICompany[]>([])
-
-    useEffect(()=> {
-        api.get('/companies').then(response => {
-            setCompanies(response.data)
-        })
-    }, [])
+    const {companies, setCompanies} = useCompany()
 
     function handleEditCompany(company: ICompany){
-        navigate(`/companies/edit/${company.id}`, {state: company})
-        
+        navigate(`/companies/edit/${company.id}`, {state: company}) 
     }
 
     async function handleDeleteCompany(company: ICompany){

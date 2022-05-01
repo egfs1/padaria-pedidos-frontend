@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useProduct } from "../../contexts/useProduct"
 import { api } from "../../services/api"
