@@ -2,19 +2,19 @@ import { FormEvent,} from "react"
 import { useLocation, useNavigate, useParams} from "react-router-dom"
 import { api } from "../../services/api"
 
-interface Product {
+interface IProduct {
     id: string
     name: string
 }
 
-interface LocationState {
-    state: Product
+interface ILocationState {
+    state: IProduct
 }
 
 export function ProductEdit(){
     const location = useLocation()
     const navigate = useNavigate()
-    const {state: product} = location as LocationState
+    const {state: product} = location as ILocationState
     const {id} = useParams()
 
     async function handleUpdateProduct(event: FormEvent){
@@ -39,13 +39,10 @@ export function ProductEdit(){
                     <form className="needs-validation" method="POST" onSubmit={handleUpdateProduct}>
                         <input className='form-control' 
                         type="text" 
-                        name='name'
                         id="name"
                         defaultValue={product.name}
-                        placeholder={product?.name} required/>
-                        <div className="invalid-feedback">
-                            Nome inválido
-                        </div>
+                        placeholder={product.name} 
+                        required/>
                         <button className="btn btn-primary mt-4">Editar</button>
                     </form>
                 </div>

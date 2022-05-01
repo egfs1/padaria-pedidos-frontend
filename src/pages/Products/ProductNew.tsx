@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { FormEvent} from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 
@@ -6,13 +6,13 @@ export function ProductNew(){
 
     const navigate = useNavigate()
 
-    const [name, setName] = useState('')
-
     async function handleSendProduct(event: FormEvent){
         event.preventDefault()
 
-        await api.post('/products/save', {name: name})
+        const name = (document.getElementById('name') as HTMLInputElement).value
 
+        await api.post('/products/save', {name: name})
+        
         navigate('/products')
     }
 
@@ -27,14 +27,9 @@ export function ProductNew(){
                     <form method="POST" onSubmit={handleSendProduct} className="needs-validation">
                         <input className='form-control' 
                         type="text" 
-                        name='name' 
+                        id='name' 
                         placeholder='Nome do produto'
-                        onChange={event => setName(event.target.value)}
-                        value={name}
                         required />
-                        <div className="invalid-feedback">
-                            Nome inválido
-                        </div>
                         <button type="submit" className="btn btn-primary mt-4">Cadastrar</button>
                     </form>
                 </div>

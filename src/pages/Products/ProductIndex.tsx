@@ -1,30 +1,29 @@
-import { FormEvent, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 
-interface Product {
+interface IProduct {
     id: string
     name: string
 }
 
 export function ProductIndex(){
     const navigate = useNavigate()
-    const [products, setProducts] = useState<Product[]>([])
+    const [products, setProducts] = useState<IProduct[]>([])
 
-    function handleEditProduct(product: Product){
+    function handleEditProduct(product: IProduct){
         navigate(`/products/edit/${product.id}`, {state: product})
         
     }
 
-    function handleDeleteProduct(product: Product){
-        if(!window.confirm(`Você tem certeza que deseja excluir o produto ${product.name}?`)){
-            return
+    function handleDeleteProduct(product: IProduct){
+        if(window.confirm(`Você tem certeza que deseja excluir o produto ${product.name}?`)){
+            api.delete(`/products/delete/${product.id}`).then(() => {
+                const newProducts = products.filter(product_filtered => product_filtered.id !== product.id)
+                setProducts(newProducts)
+    
+            })
         }
-        api.delete(`/products/delete/${product.id}`).then(response => {
-            const newProducts = products.filter(product_filtered => product_filtered.id != product.id)
-            setProducts(newProducts)
-
-        })
 
     }
 
@@ -56,7 +55,7 @@ export function ProductIndex(){
                                 <th>{product.name}</th>
                                 <th>
                                     <button onClick={()=> handleEditProduct(product)} className="btn btn-warning">Editar</button>
-                                    <button onClick={()=> handleDeleteProduct(product)} className="btn btn-danger">Excluir</button>
+                                    <button onClick={()=> handleDeleteProduct(product)} className="btn btn-danger mx-1">Excluir</button>
                                 </th>
                             </tr> 
                         )
