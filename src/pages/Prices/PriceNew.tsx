@@ -1,6 +1,6 @@
-import { FormEvent, useEffect, useState } from "react"
+import { FormEvent, useEffect} from "react"
 import { useLocation} from "react-router-dom"
-import { useProduct } from "../../contexts/useProduct"
+import { useProducts } from "../../contexts/useProducts"
 import { api } from "../../services/api"
 
 interface ICompany {
@@ -15,7 +15,7 @@ interface ILocationState {
 
 export function PriceNew() {
     const location = useLocation()
-    const {products, setProducts} = useProduct()
+    const {products, setProducts} = useProducts()
     const {state: company} = location as ILocationState
 
     async function handleSendPrice(event: FormEvent){

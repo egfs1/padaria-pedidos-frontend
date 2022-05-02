@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useCompany } from "../../contexts/useCompany"
+import { useCompanies } from "../../contexts/useCompanies" 
 import { api } from "../../services/api"
 
 interface ICompany {
@@ -9,7 +9,7 @@ interface ICompany {
 
 export function CompanyIndex() {
     const navigate = useNavigate()
-    const {companies, setCompanies} = useCompany()
+    const {companies, setCompanies} = useCompanies()
 
     function handleEditCompany(company: ICompany){
         navigate(`/companies/edit/${company.id}`, {state: company}) 

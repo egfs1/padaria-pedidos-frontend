@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useProduct } from "../../contexts/useProduct"
+import { useProducts } from "../../contexts/useProducts"
 import { api } from "../../services/api"
 
 interface IProduct {
@@ -10,7 +10,7 @@ interface IProduct {
 export function ProductIndex(){
     const navigate = useNavigate()
 
-    const {products, setProducts} = useProduct()
+    const {products, setProducts} = useProducts()
     
     function handleEditProduct(product: IProduct){
         navigate(`/products/edit/${product.id}`, {state: product})

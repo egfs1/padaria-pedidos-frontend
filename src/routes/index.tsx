@@ -1,15 +1,16 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CompanyRouter } from "./companyRouter";
-import { PriceRouter } from "./priceRouter";
-import { ProductRouter } from "./productRouter";
+import { CompaniesRouter } from "./CompaniesRouter";
+import { PricesRouter } from "./PricesRouter";
+import { ProductsRouter } from "./ProductsRouter";
 
 export function Router(){
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/products/*"  element={<ProductRouter />}/>
-                <Route path="/companies/*" element={<CompanyRouter />}/>
-                <Route path="/prices/*" element={<PriceRouter />}/>
+                <Route path="/products/*"  element={<ProductsRouter />}/>
+                <Route path="/companies/*" element={<CompaniesRouter />}/>
+                <Route path="/prices/*" element={<PricesRouter />}/>
+                <Route path="/orders/*" element={<PricesRouter />}/>
             </Routes>
         </BrowserRouter>
     )

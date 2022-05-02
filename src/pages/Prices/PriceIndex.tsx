@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
-import { useCompany } from "../../contexts/useCompany"
-import { usePrice } from "../../contexts/usePrice"
+import { useCompanies } from "../../contexts/useCompanies"
+import { usePrices } from "../../contexts/usePrices"
 import { api } from "../../services/api"
 
 interface ICompany {
@@ -23,8 +23,8 @@ interface IPrice {
 export function PriceIndex(){
     const navigate = useNavigate()
 
-    const {prices, setPrices} = usePrice()
-    const {companies} = useCompany()
+    const {prices, setPrices} = usePrices()
+    const {companies} = useCompanies()
 
     function handleNewPrice(company: ICompany){
         navigate('/prices/new', {state: company})

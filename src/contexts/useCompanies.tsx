@@ -6,7 +6,7 @@ interface ICompany {
     name: string
 }
 
-export function useCompany(){
+export function useCompanies(){
     const [companies, setCompanies] = useState<ICompany[]>([])
 
     useEffect(()=> {

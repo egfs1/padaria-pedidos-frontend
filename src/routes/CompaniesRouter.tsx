@@ -3,7 +3,7 @@ import { CompanyEdit } from "../pages/Companies/CompanyEdit";
 import { CompanyIndex } from "../pages/Companies/CompanyIndex";
 import { CompanyNew } from "../pages/Companies/CompanyNew";
 
-export function CompanyRouter() {
+export function CompaniesRouter() {
     return (
         <Routes>
             <Route path="/" element={<CompanyIndex />}/>

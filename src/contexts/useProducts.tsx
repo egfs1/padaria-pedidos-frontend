@@ -6,7 +6,7 @@ interface IProduct {
     name: string
 }
 
-export function useProduct(){
+export function useProducts(){
     const [products, setProducts] = useState<IProduct[]>([])
 
     useEffect(()=>{

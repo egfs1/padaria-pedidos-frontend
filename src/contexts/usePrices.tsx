@@ -19,7 +19,7 @@ interface IPrice {
     product: IProduct
 }
 
-export function usePrice() {
+export function usePrices() {
     const [prices, setPrices] = useState<IPrice[]>([])
 
     useEffect(()=>{

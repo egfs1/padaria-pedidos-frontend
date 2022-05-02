@@ -3,7 +3,7 @@ import { ProductEdit } from "../pages/Products/ProductEdit";
 import { ProductIndex } from "../pages/Products/ProductIndex";
 import { ProductNew } from "../pages/Products/ProductNew";
 
-export function ProductRouter() {
+export function ProductsRouter() {
     return (
         <Routes>
             <Route path="/" element={<ProductIndex />}/>

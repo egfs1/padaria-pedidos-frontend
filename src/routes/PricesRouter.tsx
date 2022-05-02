@@ -3,7 +3,7 @@ import { PriceEdit } from "../pages/Prices/PriceEdit";
 import { PriceIndex } from "../pages/Prices/PriceIndex";
 import { PriceNew } from "../pages/Prices/PriceNew";
 
-export function PriceRouter() {
+export function PricesRouter() {
     return (
         <Routes>
             <Route path="/" element={<PriceIndex />}/>
