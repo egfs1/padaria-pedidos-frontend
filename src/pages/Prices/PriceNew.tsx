@@ -1,4 +1,4 @@
-import { FormEvent, useEffect} from "react"
+import { FormEvent} from "react"
 import { useLocation} from "react-router-dom"
 import { useProducts } from "../../contexts/useProducts"
 import { api } from "../../services/api"
@@ -15,7 +15,7 @@ interface ILocationState {
 
 export function PriceNew() {
     const location = useLocation()
-    const {products, setProducts} = useProducts()
+    const {products} = useProducts()
     const {state: company} = location as ILocationState
 
     async function handleSendPrice(event: FormEvent){
@@ -29,12 +29,6 @@ export function PriceNew() {
     
         window.location.reload()
     }
-
-    useEffect(()=>{
-        api.get('/products').then(response => {
-            setProducts(response.data)
-        })
-    },[])
 
     return (
         <div className="container">

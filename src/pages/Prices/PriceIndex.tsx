@@ -86,6 +86,7 @@ export function PriceIndex(){
                                             </tr>
                                         )   
                                     }
+                                    return null
                                 })}
                             </tbody>
                         </table>

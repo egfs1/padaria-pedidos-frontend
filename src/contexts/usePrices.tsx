@@ -19,14 +19,20 @@ interface IPrice {
     product: IProduct
 }
 
-export function usePrices() {
+export function usePrices(company_id?: string) {
     const [prices, setPrices] = useState<IPrice[]>([])
 
     useEffect(()=>{
-        api.get('/prices').then(response => {
-            setPrices(response.data)
-        })
-    }, [])
+        if(company_id !== undefined){
+            api.get(`/prices/find_by_company/${company_id}`).then(response => {
+                setPrices(response.data)
+            })
+        }else {
+            api.get('/prices').then(response => {
+                setPrices(response.data)
+            })
+        }
+    }, [company_id])
 
     return {prices, setPrices}
 }   
