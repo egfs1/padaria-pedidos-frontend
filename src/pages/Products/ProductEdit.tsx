@@ -15,14 +15,13 @@ export function ProductEdit(){
     const location = useLocation()
     const navigate = useNavigate()
     const {state: product} = location as ILocationState
-    const {id} = useParams()
 
     async function handleUpdateProduct(event: FormEvent){
         event.preventDefault()
 
         const name = (document.getElementById('name') as HTMLInputElement).value
         
-        await api.put(`/products/update/${id}`, {name: name})
+        await api.put(`/products/update/${product.id}`, {name: name})
 
         navigate('/products')
 
@@ -41,7 +40,7 @@ export function ProductEdit(){
                         type="text" 
                         id="name"
                         defaultValue={product.name}
-                        placeholder={product.name} 
+                        placeholder={product?.name} 
                         required/>
                         <button className="btn btn-primary mt-4">Editar</button>
                     </form>

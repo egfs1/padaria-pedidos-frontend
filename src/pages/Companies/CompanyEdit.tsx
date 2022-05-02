@@ -16,14 +16,13 @@ export function CompanyEdit() {
     const location = useLocation()
     const navigate = useNavigate()
     const {state: company} = location as ILocationState
-    const {id} = useParams()
 
     async function handleUpdateCompany(event: FormEvent){
         event.preventDefault()
 
         const name = (document.getElementById('name') as HTMLInputElement).value
         
-        await api.put(`/companies/update/${id}`, {name: name})
+        await api.put(`/companies/update/${company.id}`, {name: name})
 
         navigate('/companies')
 
