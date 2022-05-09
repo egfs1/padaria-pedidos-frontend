@@ -15,7 +15,7 @@ export function ProductIndex(){
     const {products, setProducts} = useProducts()
     
     function handleEditProduct(product: IProduct){
-        navigate(`/products/edit/${product.id}`, {state: product})
+        navigate(`/products/${product.id}`, {state: product})
         
     }
 

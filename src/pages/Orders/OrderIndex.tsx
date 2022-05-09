@@ -34,7 +34,7 @@ export function OrderIndex(){
     }
 
     function handleEditOrder(order: IOrder){
-        navigate(`/orders/edit/${order.id}`, {state: order})
+        navigate(`/orders/${order.id}`, {state: order})
         
     }
 

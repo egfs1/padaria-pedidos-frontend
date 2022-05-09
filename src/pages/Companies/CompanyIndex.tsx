@@ -14,7 +14,7 @@ export function CompanyIndex() {
     const {companies, setCompanies} = useCompanies()
 
     function handleEditCompany(company: ICompany){
-        navigate(`/companies/edit/${company.id}`, {state: company}) 
+        navigate(`/companies/${company.id}`, {state: company}) 
     }
 
     async function handleDeleteCompany(company: ICompany){

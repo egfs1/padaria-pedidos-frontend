@@ -25,7 +25,7 @@ export function PriceIndex(){
     }
 
     function handleEditPrice(price: IPrice){
-        navigate(`/prices/edit/${price.id}`, {state: price})
+        navigate(`/prices/${price.id}`, {state: price})
         
     }
 
