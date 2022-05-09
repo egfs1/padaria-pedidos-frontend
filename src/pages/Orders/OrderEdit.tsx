@@ -35,7 +35,7 @@ export function OrderEdit(){
         })
         setSubOrders(newArray)
     },[products])
-    
+
     function getProductPriceByProductId(product_id: string){
         var product_price = 0
         for (const product of products){
@@ -99,12 +99,18 @@ export function OrderEdit(){
         navigate('/orders')
     }
 
+    function handleGoBack(){
+        navigate(`/orders/company/${order.company.id}`, {state: order.company})
+    }
+
     return (
         <div className="container">
             <hr/>
             <div className="card">
                 <div className="card-header">
-                    <h2>Novo Pedido</h2>
+                    <h2>Editar Pedido</h2>
+                    <hr />
+                    <button onClick={()=> handleGoBack()} className="btn btn-primary">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleUpdateOrder} id='form'  className="needs-validation" name="form" method="POST" action='/orders/save'>
@@ -169,7 +175,7 @@ export function OrderEdit(){
                             </div>
                         </div>
                         <hr/>
-                        <button form="form" type="submit" className="btn btn-primary">Cadastrar</button>
+                        <button form="form" type="submit" className="btn btn-primary">Editar</button>
                     </form>
                 </div>
             </div>

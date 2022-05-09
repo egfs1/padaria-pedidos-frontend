@@ -23,29 +23,14 @@ export interface IOrder {
 
 export function OrderIndex(){
     const navigate = useNavigate()
-    const {orders, setOrders} = useOrders()
     const {companies} = useCompanies()
-
-    function handleQuantitative(){
-
-    }
 
     function handleNewOrder(company: ICompany){
         navigate('/orders/new', {state: company})
     }
 
-    function handleEditOrder(order: IOrder){
-        navigate(`/orders/${order.id}`, {state: order})
-        
-    }
-
-    function handleDeleteOrder(order: IOrder){
-        if(window.confirm(`Você tem certeza que deseja excluir o pedido do dia ${order.date} da empresa ${order.company.name}?`)){
-            api.delete(`/orders/delete/${order.id}`).then(() => {
-                const newPrices = orders.filter(order_filtered => order_filtered.id !== order.id)
-                setOrders(newPrices)
-            })
-        }
+    function handleShowOrdersByCompany(company: ICompany){
+        navigate(`/orders/company/${company.id}`, {state: company})
     }
 
     return (
@@ -63,58 +48,17 @@ export function OrderIndex(){
                                     <h4>{company.name}</h4>
                                     <hr/>
                                     <div className="col col-12">
-                                        <div className="quantitative">
-                                            <button onClick={()=> handleQuantitative()} className="btn btn-primary" style={{float:"left"}}>Quantitativo</button>
-                                            <select style={{width:"auto", float: "left"}} className="form-select mx-2" name="month">
-                                                <option value="1">Janeiro</option>
-                                                <option value="2">Fevereiro</option>
-                                                <option value="3">Março</option>
-                                                <option value="4">Abril</option>
-                                                <option value="5">Maio</option>
-                                                <option value="6">Junho</option>
-                                                <option value="7">Julho</option>
-                                                <option value="8">Agosto</option>
-                                                <option value="9">Setembro</option>
-                                                <option value="10">Outubro</option>
-                                                <option value="11">Novembro</option>
-                                                <option value="12">Dezembro</option>
-                                            </select> 
+                                        <div className="show-orders-by-company">
+                                            <Button onClick={()=> handleShowOrdersByCompany(company)} text="Ver Pedidos" type="btn-primary" style={{float:"left", height: "42px"}}/>
                                         </div>
+
                                         <div className="new-order">
                                             <Button onClick={()=> handleNewOrder(company)} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <table className='table table-bordered'>
-                            <thead>
-                                <tr>
-                                    <th>Empresa</th>
-                                    <th>Data</th>
-                                    <th>Valor</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {orders.map((order, orderKey) => {
-                                    if(order.company.name === company.name){
-                                        return (
-                                            <tr key={orderKey}>
-                                                <th>{order.company.name}</th>
-                                                <th>{new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', month: '2-digit', day: '2-digit'})}</th>
-                                                <th>{order.value.toFixed(2)}</th>
-                                                <th>
-                                                    <Button text="Editar" type="btn-warning mb-1 px-2" icon={<FiEdit />} onClick={()=>  handleEditOrder(order)}/>
-                                                    <Button text="Excluir" type="btn-danger mb-1 px-2" icon={<FiTrash />} onClick={()=> handleDeleteOrder(order)}/>
-                                                </th>
-                                            </tr>
-                                        )
-                                    }
-                                    return null
-                                })}
-                            </tbody>
-                        </table>                        
+                        </div>                     
                     </div>
                 )
             })}

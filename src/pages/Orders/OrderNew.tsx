@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
 import { FiPlus, FiX } from "react-icons/fi"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { usePrices } from "../../contexts/usePrices"
 import { api } from "../../services/api"
@@ -19,7 +19,7 @@ interface ISubOrder {
 
 var numeration = 0
 export function OrderNew(){
-    
+    const navigate = useNavigate()
     const location = useLocation()
     const {state: company} = location as ILocationState
     const [subOrders, setSubOrders] = useState<ISubOrder[]>([])
@@ -96,12 +96,18 @@ export function OrderNew(){
         setSubOrders(newArray)
     }
 
+    function handleGoBack(){
+        navigate(`/orders/company/${company.id}`, {state: company})
+    }
+
     return (
         <div className="container">
             <hr/>
             <div className="card">
                 <div className="card-header">
                     <h2>Novo Pedido</h2>
+                    <hr />
+                    <button onClick={()=> handleGoBack()} className="btn btn-primary">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form id='form' onSubmit={handleSendOrder}  className="needs-validation" name="form" method="POST" action='/orders/save'>
