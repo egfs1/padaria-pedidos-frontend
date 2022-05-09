@@ -1,11 +1,7 @@
 import { FormEvent } from "react"
 import { useLocation, useNavigate} from "react-router-dom"
 import { api } from "../../services/api"
-
-interface ICompany {
-    id: string
-    name: string
-}
+import { ICompany } from "./CompanyIndex"
 
 interface ILocationState {
     state: ICompany

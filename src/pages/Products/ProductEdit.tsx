@@ -1,11 +1,7 @@
 import { FormEvent,} from "react"
 import { useLocation, useNavigate} from "react-router-dom"
 import { api } from "../../services/api"
-
-interface IProduct {
-    id: string
-    name: string
-}
+import { IProduct } from "./ProductIndex"
 
 interface ILocationState {
     state: IProduct

@@ -1,23 +1,6 @@
 import { useEffect, useState } from "react";
+import { IPrice } from "../pages/Prices/PriceIndex";
 import { api } from "../services/api";
-
-interface ICompany {
-    id: string
-    name: string
-}
-
-interface IProduct {
-    id: string
-    name: string
-}
-
-
-interface IPrice {
-    id: string
-    price: number
-    company: ICompany
-    product: IProduct
-}
 
 export function usePrices(company_id?: string) {
     const [prices, setPrices] = useState<IPrice[]>([])

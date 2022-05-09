@@ -1,17 +1,6 @@
 import { useEffect, useState } from "react"
+import { IOrder } from "../pages/Orders/OrderIndex"
 import { api } from "../services/api"
-
-interface ICompany {
-    id: string
-    name: string
-}
-
-interface IOrder {
-    id: string
-    company: ICompany
-    date: Date,
-    value: number
-}
 
 export function useOrders(){
     const [orders, setOrders] = useState<IOrder[]>([])

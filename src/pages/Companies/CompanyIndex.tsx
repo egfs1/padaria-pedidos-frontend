@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom"
+import { Button } from "../../components/Button"
 import { useCompanies } from "../../contexts/useCompanies" 
 import { api } from "../../services/api"
+import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
 
-interface ICompany {
+export interface ICompany {
     id: string
     name: string
 }
@@ -45,8 +47,8 @@ export function CompanyIndex() {
                             <tr key={key}>
                                 <th>{company.name}</th>
                                 <th>
-                                    <button onClick={()=> handleEditCompany(company)} className="btn btn-warning">Editar</button>
-                                    <button onClick={()=> handleDeleteCompany(company)} className="btn btn-danger mx-1">Excluir</button>
+                                    <Button text="Editar" type="btn-warning mx-1 mb-1" icon={<FiEdit />} onClick={()=>  handleEditCompany(company)}/>
+                                    <Button text="Excluir" type="btn-danger mx-1 mb-1" icon={<FiTrash />} onClick={()=> handleDeleteCompany(company)}/>
                                 </th>
                             </tr>
                         )

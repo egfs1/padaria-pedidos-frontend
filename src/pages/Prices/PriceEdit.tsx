@@ -1,23 +1,8 @@
 import { FormEvent } from "react"
 import { useLocation, useNavigate} from "react-router-dom"
 import { api } from "../../services/api"
+import { IPrice } from "./PriceIndex"
 
-interface ICompany {
-    id: string
-    name: string
-}
-
-interface IProduct {
-    id: string
-    name: string
-}
-
-interface IPrice {
-    id: string
-    price: number
-    company: ICompany
-    product: IProduct
-}
 
 interface ILocationState {
     state: IPrice
@@ -32,7 +17,7 @@ export function PriceEdit(){
     async function handleUpdatePrice(event: FormEvent){
         event.preventDefault()
 
-        const _price = (document.getElementById('price') as HTMLInputElement).value
+        const _price = parseFloat((document.getElementById('price') as HTMLInputElement).value)
         
         await api.put(`/prices/update/${price.id}`, {price: _price})
 
@@ -45,7 +30,7 @@ export function PriceEdit(){
             <hr/>
             <div className="card">
                 <div className="card-header">
-                    <h2>Novo Preço</h2>
+                    <h2>Editar Preço</h2>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleUpdatePrice}  method="POST" className="needs-validation">
@@ -74,7 +59,7 @@ export function PriceEdit(){
                         <div className="invalid-feedback">
                             Valor inválido
                         </div>
-                        <button type="submit" className="btn btn-primary mt-4">Cadastrar</button>
+                        <button type="submit" className="btn btn-primary mt-4">Salvar</button>
                     </form>
                 </div>
             </div>

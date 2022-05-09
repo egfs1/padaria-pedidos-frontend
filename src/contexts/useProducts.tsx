@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react";
+import { IProduct } from "../pages/Products/ProductIndex";
 import { api } from "../services/api";
-
-interface IProduct {
-    id: string
-    name: string
-}
 
 export function useProducts(){
     const [products, setProducts] = useState<IProduct[]>([])

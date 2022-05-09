@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom"
+import { Button } from "../../components/Button"
 import { useProducts } from "../../contexts/useProducts"
 import { api } from "../../services/api"
+import { FiTrash, FiEdit } from "react-icons/fi"
 
-interface IProduct {
+export interface IProduct {
     id: string
     name: string
 }
@@ -48,8 +50,8 @@ export function ProductIndex(){
                             <tr key={key}>
                                 <th>{product.name}</th>
                                 <th>
-                                    <button onClick={()=> handleEditProduct(product)} className="btn btn-warning">Editar</button>
-                                    <button onClick={()=> handleDeleteProduct(product)} className="btn btn-danger mx-1">Excluir</button>
+                                    <Button text="Editar" type="btn-warning mx-1 mb-1" icon={<FiEdit />} onClick={()=> handleEditProduct(product)}/>
+                                    <Button text="Excluir" type="btn-danger mx-1 mb-1" icon={<FiTrash />} onClick={()=> handleDeleteProduct(product)}/>
                                 </th>
                             </tr> 
                         )

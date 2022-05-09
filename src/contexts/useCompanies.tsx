@@ -1,10 +1,6 @@
 import { useEffect, useState } from "react"
+import { ICompany } from "../pages/Companies/CompanyIndex"
 import { api } from "../services/api"
-
-interface ICompany {
-    id: string
-    name: string
-}
 
 export function useCompanies(){
     const [companies, setCompanies] = useState<ICompany[]>([])

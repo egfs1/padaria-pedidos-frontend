@@ -1,20 +1,16 @@
 import { FormEvent, ReactNode, useEffect, useState } from "react"
+import { FiPlus, FiX } from "react-icons/fi"
 import { useLocation } from "react-router-dom"
-import { SubOrder } from "../../components/SubOrder"
+import { Button } from "../../components/Button"
 import { usePrices } from "../../contexts/usePrices"
-import { useProducts } from "../../contexts/useProducts"
 import { api } from "../../services/api"
-
-interface ICompany {
-    id: string
-    name: string
-}
+import { ICompany } from "../Companies/CompanyIndex"
 
 interface ILocationState {
     state: ICompany
 }
 
-interface ISubOrder {
+export interface ISubOrder {
     index: number
     product_id: string
     quantity: string
@@ -91,7 +87,7 @@ export function OrderNew(){
                     <h2>Novo Pedido</h2>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={handleSendOrder}  className="needs-validation" name="form" method="POST" action='/orders/save'>
+                    <form id='form' onSubmit={handleSendOrder}  className="needs-validation" name="form" method="POST" action='/orders/save'>
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required>
                                 <option value={company.id}>{company.name}</option>
@@ -111,7 +107,7 @@ export function OrderNew(){
                                         <hr/>
                                         <div className="card-header">
                                                 <h4>Produto</h4>
-                                                <a onClick={()=> handleDelete(subOrder.index)} className="btn btn-danger rounded-circle" style={{float:"right"}}>x</a>
+                                                <Button onClick={()=> handleDelete(subOrder.index)} type="btn-danger rounded-circle" icon={<FiX />} style={{float:"right", height: "42px"}}/>
                                         </div>
                                         <div className="card-body">
                                             <label>Produto </label>
@@ -149,11 +145,11 @@ export function OrderNew(){
                         </div>
                         <div className="row">
                             <div className="col col-12">
-                                <a onClick={handleAddSubOrder} className="btn btn-primary rounded-circle mt-3" style={{float:"right"}}>+</a>
+                                <Button onClick={handleAddSubOrder} type="btn-primary rounded-circle mt-3" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                             </div>
                         </div>
                         <hr/>
-                        <button type="submit" className="btn btn-primary">Cadastrar</button>
+                        <button form="form" type="submit" className="btn btn-primary">Cadastrar</button>
                     </form>
                 </div>
             </div>

@@ -2,17 +2,22 @@ import { useNavigate } from "react-router-dom"
 import { useCompanies } from "../../contexts/useCompanies"
 import { useOrders } from "../../contexts/useOrders"
 import { api } from "../../services/api"
+import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
+import { Button } from "../../components/Button"
+import { ICompany } from "../Companies/CompanyIndex"
 
-interface ICompany {
+interface ISubOrder {
     id: string
-    name: string
+    product_id: string
+    quantity: string
 }
 
-interface IOrder {
+export interface IOrder {
     id: string
     company: ICompany
     date: Date
     value: number
+    sub_orders: ISubOrder[]
 }
 
 export function OrderIndex(){
@@ -59,7 +64,7 @@ export function OrderIndex(){
                                     <div className="col col-12">
                                         <div className="quantitative">
                                             <button onClick={()=> handleQuantitative()} className="btn btn-primary" style={{float:"left"}}>Quantitativo</button>
-                                            <select style={{width:"auto", float: "left"}} className="form-select mx-3" name="month">
+                                            <select style={{width:"auto", float: "left"}} className="form-select mx-2" name="month">
                                                 <option value="1">Janeiro</option>
                                                 <option value="2">Fevereiro</option>
                                                 <option value="3">Março</option>
@@ -75,7 +80,7 @@ export function OrderIndex(){
                                             </select> 
                                         </div>
                                         <div className="new-order">
-                                            <button onClick={()=> handleNewOrder(company)} className="btn btn-primary rounded-circle" style={{float:"right"}}>+</button>
+                                            <Button onClick={()=> handleNewOrder(company)} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                                         </div>
                                     </div>
                                 </div>
@@ -96,11 +101,11 @@ export function OrderIndex(){
                                         return (
                                             <tr key={orderKey}>
                                                 <th>{order.company.name}</th>
-                                                <th>{new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC'})}</th>
+                                                <th>{new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', year: '2-digit', month: '2-digit', day: '2-digit'})}</th>
                                                 <th>{order.value.toFixed(2)}</th>
                                                 <th>
-                                                    <button onClick={()=>  handleEditOrder(order)} className="btn btn-warning">Editar</button>
-                                                    <button onClick={()=> handleDeleteOrder(order)} className="btn btn-danger">Excluir</button>
+                                                    <Button text="Editar" type="btn-warning mb-1 px-2" icon={<FiEdit />} onClick={()=>  handleEditOrder(order)}/>
+                                                    <Button text="Excluir" type="btn-danger mb-1 px-2" icon={<FiTrash />} onClick={()=> handleDeleteOrder(order)}/>
                                                 </th>
                                             </tr>
                                         )

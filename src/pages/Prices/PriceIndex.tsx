@@ -2,18 +2,12 @@ import { useNavigate } from "react-router-dom"
 import { useCompanies } from "../../contexts/useCompanies"
 import { usePrices } from "../../contexts/usePrices"
 import { api } from "../../services/api"
+import { FiTrash, FiEdit } from "react-icons/fi"
+import { Button } from "../../components/Button"
+import { ICompany } from "../Companies/CompanyIndex"
+import { IProduct } from "../Products/ProductIndex"
 
-interface ICompany {
-    id: string
-    name: string
-}
-
-interface IProduct {
-    id: string
-    name: string
-}
-
-interface IPrice {
+export interface IPrice {
     id: string
     price: number
     company: ICompany
@@ -80,8 +74,8 @@ export function PriceIndex(){
                                                 <th>{price.product.name}</th>
                                                 <th>{price.price.toFixed(2)}</th>
                                                 <th>
-                                                    <button onClick={()=> handleEditPrice(price)} className="btn btn-warning">Editar</button>
-                                                    <button onClick={()=> handleDeletePrice(price)} className="btn btn-danger mx-1">Excluir</button>
+                                                    <Button text="Editar" type="btn-warning mx-1 mb-1" icon={<FiEdit />} onClick={()=>  handleEditPrice(price)}/>
+                                                    <Button text="Excluir" type="btn-danger mx-1 mb-1" icon={<FiTrash />} onClick={()=> handleDeletePrice(price)}/>
                                                 </th>
                                             </tr>
                                         )   
