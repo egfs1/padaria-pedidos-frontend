@@ -1,10 +1,11 @@
-import { FormEvent, ReactNode, useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { FiPlus, FiX } from "react-icons/fi"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { usePrices } from "../../contexts/usePrices"
 import { api } from "../../services/api"
 import { IOrder } from "./OrderIndex"
+
 
 interface ILocationState {
     state: IOrder
@@ -12,43 +13,55 @@ interface ILocationState {
 
 interface ISubOrder {
     id?: string
-    index?: number
+    index?: number | undefined
     product_id: string
+    product_price?: number 
     quantity: string
 }
 
-var numeration = 0
 export function OrderEdit(){
+    const navigate = useNavigate()
     const location = useLocation()
     const {state: order} = location as ILocationState
     const {prices: products} = usePrices(order.company.id)
     const [subOrders, setSubOrders] = useState<ISubOrder[]>(order.sub_orders)
 
     useEffect(()=> {
-        console.log(subOrders)
-    },[subOrders])
-
-    function handleAddSubOrder(subOrder: ISubOrder){
-        if(subOrder.id!==undefined){
-            setSubOrders([...subOrders,{id: subOrder.id , index: numeration, product_id: subOrder.product_id, quantity: subOrder.quantity}])
-        }else{
-            setSubOrders([...subOrders,{index: numeration, product_id: products[0].product.id, quantity: ''}])
-            
+        const newArray = [...subOrders]
+        newArray.forEach(subOrder => {
+            if (!subOrder.product_price || subOrder.product_price===0){
+                subOrder.product_price = getProductPriceByProductId(subOrder.product_id)
+            }
+        })
+        setSubOrders(newArray)
+    },[products])
+    
+    function getProductPriceByProductId(product_id: string){
+        var product_price = 0
+        for (const product of products){
+            if(product.product.id === product_id){
+                product_price = product.price
+            }
         }
-        numeration++
+
+        return product_price
     }
 
-    function setSubOrderIndex(subOrder: ISubOrder){
+    function setSubOrderIndexIfNotExist(subOrder: ISubOrder, key: number){
         const newArray = [...subOrders]
         newArray.forEach(newSubOrder => {
             if (newSubOrder.id === subOrder.id){
-                newSubOrder.index = numeration
-                numeration++
+                newSubOrder.index = key
                 setSubOrders(newArray)
                 return newSubOrder.index
             }
         })
         return ''
+    }
+
+    function handleAddSubOrder(){
+        const index = (subOrders[subOrders.length-1].index! + 1)
+        setSubOrders([...subOrders,{index: index, product_id: products[0].product.id, product_price: products[0].price, quantity: ''}])
     }
     
     function handleDelete(index: number){
@@ -57,10 +70,12 @@ export function OrderEdit(){
     }
     
     function onChangeProductId(index: number, product_id: string){
+
         const newArray = [...subOrders]
         newArray.forEach(subOrder => {
-            if (subOrder.index == index){
+            if (subOrder.index === index){
                 subOrder.product_id = product_id
+                subOrder.product_price = getProductPriceByProductId(product_id)
             }
         })
         setSubOrders(newArray)
@@ -69,11 +84,19 @@ export function OrderEdit(){
     function onChangeQuantity(index: number, quantity: string){
         const newArray = [...subOrders]
         newArray.forEach(subOrder => {
-            if (subOrder.index == index){
+            if (subOrder.index === index){
                 subOrder.quantity = quantity
             }
         })
         setSubOrders(newArray)
+    }
+
+    async function handleUpdateOrder(event: FormEvent){
+        event.preventDefault()
+
+        await api.put(`/orders/update/${order.id}`, {subOrders: subOrders})
+
+        navigate('/orders')
     }
 
     return (
@@ -84,7 +107,7 @@ export function OrderEdit(){
                     <h2>Novo Pedido</h2>
                 </div>
                 <div className="card-body">
-                    <form id='form'  className="needs-validation" name="form" method="POST" action='/orders/save'>
+                    <form onSubmit={handleUpdateOrder} id='form'  className="needs-validation" name="form" method="POST" action='/orders/save'>
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required>
                                 <option value={order.company.id}>{order.company.name}</option>
@@ -100,7 +123,7 @@ export function OrderEdit(){
                         <div id="suborders">
                             {subOrders.map((subOrder, key)=> {
                                 return(
-                                    <div key={key} id={subOrder.index===undefined ? setSubOrderIndex(subOrder) : subOrder.index + ""}>
+                                    <div key={key} id={subOrder.index===undefined ? setSubOrderIndexIfNotExist(subOrder, key) : subOrder.index + ""}>
                                         <hr/>
                                         <div className="card-header">
                                                 <h4>Produto</h4>

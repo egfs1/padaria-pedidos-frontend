@@ -1,4 +1,4 @@
-import { FormEvent, ReactNode, useEffect, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { FiPlus, FiX } from "react-icons/fi"
 import { useLocation } from "react-router-dom"
 import { Button } from "../../components/Button"
@@ -10,9 +10,10 @@ interface ILocationState {
     state: ICompany
 }
 
-export interface ISubOrder {
+interface ISubOrder {
     index: number
     product_id: string
+    product_price: number
     quantity: string
 }
 
@@ -21,8 +22,8 @@ export function OrderNew(){
     
     const location = useLocation()
     const {state: company} = location as ILocationState
-    const {prices: products} = usePrices(company.id)
     const [subOrders, setSubOrders] = useState<ISubOrder[]>([])
+    const {prices: products} = usePrices(company.id)
 
     function handleDelete(index: number){
         const newArray = subOrders.filter((filteredSubOrder, _) => index !== filteredSubOrder.index)
@@ -40,39 +41,55 @@ export function OrderNew(){
         event.preventDefault()
         
         const product_id: string[] = []
+        const product_price: number[] = []
         const quantity: number[] = []
         const date =  new Date((document.getElementById('date') as HTMLInputElement).value)
 
         subOrders.forEach(subOrder => {
             product_id.push(subOrder.product_id)
-            console.log(subOrder.product_id)
+            product_price.push(subOrder.product_price)
             quantity.push(parseFloat(subOrder.quantity))
         })
 
-        await api.post('/orders/save', {company_id: company.id, date: date, product_id, quantity})
+        await api.post('/orders/save', {company_id: company.id, date: date, product_id, product_price, quantity})
         
         window.location.reload()
     }
 
     function handleAddSubOrder(){
-        setSubOrders([...subOrders,{index: numeration, product_id: products[0].product.id, quantity: ''}])
+        setSubOrders([...subOrders,{index: numeration, product_id: products[0].product.id, product_price: products[0].price, quantity: ''}])
         numeration++
+    }
+
+    function getProductPriceByProductId(product_id: string){
+        var product_price = 0
+        for (const product of products){
+            if(product.product.id === product_id){
+                product_price = product.price
+            }
+        }
+
+        return product_price
     }
     
     function onChangeProductId(index: number, product_id: string){
         const newArray = [...subOrders]
-        newArray.forEach(subOrder => {
-            if (subOrder.index == index){
+        const product_price = getProductPriceByProductId(product_id)
+
+        for (const subOrder of newArray){
+            if (subOrder.index === index){
                 subOrder.product_id = product_id
+                subOrder.product_price = product_price
             }
-        })
+        }
+
         setSubOrders(newArray)
     }
 
     function onChangeQuantity(index: number, quantity: string){
         const newArray = [...subOrders]
         newArray.forEach(subOrder => {
-            if (subOrder.index == index){
+            if (subOrder.index === index){
                 subOrder.quantity = quantity
             }
         })
@@ -112,7 +129,7 @@ export function OrderNew(){
                                         <div className="card-body">
                                             <label>Produto </label>
                                             <select 
-                                            name="product_id" 
+                                            name="product" 
                                             className="form-control"
                                             onChange={event => onChangeProductId( subOrder.index, event.target.value)}
                                             value={subOrder.product_id}

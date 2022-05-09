@@ -15,7 +15,7 @@ export function usePrices(company_id?: string) {
                 setPrices(response.data)
             })
         }
-    }, [company_id])
+    }, [])
 
     return {prices, setPrices}
 }   

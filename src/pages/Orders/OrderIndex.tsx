@@ -7,8 +7,9 @@ import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 
 interface ISubOrder {
-    id: string
+    id?: string
     product_id: string
+    product_price?: number 
     quantity: string
 }
 
@@ -101,7 +102,7 @@ export function OrderIndex(){
                                         return (
                                             <tr key={orderKey}>
                                                 <th>{order.company.name}</th>
-                                                <th>{new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', year: '2-digit', month: '2-digit', day: '2-digit'})}</th>
+                                                <th>{new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', month: '2-digit', day: '2-digit'})}</th>
                                                 <th>{order.value.toFixed(2)}</th>
                                                 <th>
                                                     <Button text="Editar" type="btn-warning mb-1 px-2" icon={<FiEdit />} onClick={()=>  handleEditOrder(order)}/>

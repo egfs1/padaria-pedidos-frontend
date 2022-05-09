@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { useCompanies } from "../../contexts/useCompanies" 
 import { api } from "../../services/api"
-import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
+import { FiTrash, FiEdit } from "react-icons/fi"
 
 export interface ICompany {
     id: string
