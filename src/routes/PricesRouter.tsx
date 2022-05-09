@@ -8,7 +8,7 @@ export function PricesRouter() {
         <Routes>
             <Route path="/" element={<PriceIndex />}/>
             <Route path="/new" element={<PriceNew />}/>
-            <Route path="/edit/:id" element={<PriceEdit />}/>
+            <Route path="/:id" element={<PriceEdit />}/>
         </Routes>
     )
 }

@@ -8,7 +8,7 @@ export function CompaniesRouter() {
         <Routes>
             <Route path="/" element={<CompanyIndex />}/>
             <Route path="/new" element={<CompanyNew />}/>
-            <Route path="/edit/:id" element={<CompanyEdit />}/>
+            <Route path="/:id" element={<CompanyEdit />}/>
         </Routes>
     )
 }

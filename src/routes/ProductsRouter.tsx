@@ -8,7 +8,7 @@ export function ProductsRouter() {
         <Routes>
             <Route path="/" element={<ProductIndex />}/>
             <Route path="/new" element={<ProductNew />}/>
-            <Route path="/edit/:id" element={<ProductEdit />}/>
+            <Route path="/:id" element={<ProductEdit />}/>
         </Routes>
     )
 }
