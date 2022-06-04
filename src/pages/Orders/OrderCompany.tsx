@@ -5,14 +5,14 @@ import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
 import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 import { IOrder } from "./OrderIndex"
-import { useMonths } from "../../contexts/useMonths"
+import { getAllMonths } from "../../contexts/useMonths"
 import { useEffect, useState } from "react"
 
 export function OrderCompany(){
     const { company_id } = useParams()
     const navigate = useNavigate()
     const {orders, setOrders} = useOrders(company_id)
-    const months = useMonths().reverse()
+    const months = getAllMonths()
     const [company, setCompany] = useState<ICompany | undefined>()
 
     useEffect(()=> {
@@ -21,16 +21,16 @@ export function OrderCompany(){
         })
     }, [company_id])
     
-    function handleQuantitative(){
-
+    function handleQuantitative(month: string){
+        navigate(`/orders/quantitative/${company_id}/${month}`)
     }
 
     function handleNewOrder(){
-        navigate(`/orders/${company?.id}/new`)
+        navigate(`/orders/${company_id}/new`)
     }
 
     function handleEditOrder(order: IOrder){
-        navigate(`/orders/${company?.id}/${order.id}`)
+        navigate(`/orders/${company_id}/${order.id}`)
     }
 
     function handleDeleteOrder(order: IOrder){
@@ -64,7 +64,7 @@ export function OrderCompany(){
                                     <hr/>
                                     <div className="col col-12">
                                         <div className="quantitative">
-                                            <button onClick={()=> handleQuantitative()} className="btn btn-primary" style={{float:"left"}}>Quantitativo</button>
+                                            <button onClick={()=> handleQuantitative(month.numberAsString)} className="btn btn-primary" style={{float:"left"}}>Quantitativo</button>
                                         </div>
                                         <div className="new-order">
                                             <Button onClick={()=> handleNewOrder()} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
