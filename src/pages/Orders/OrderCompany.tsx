@@ -34,7 +34,7 @@ export function OrderCompany(){
     }
 
     function handleDeleteOrder(order: IOrder){
-        if(window.confirm(`Você tem certeza que deseja excluir o pedido do dia ${order.date} da empresa ${order.company.name}?`)){
+        if(window.confirm(`Você tem certeza que deseja excluir o pedido do dia ${order.date} da empresa ${company?.name}?`)){
             api.delete(`/orders/delete/${order.id}`).then(() => {
                 const newPrices = orders.filter(order_filtered => order_filtered.id !== order.id)
                 setOrders(newPrices)
