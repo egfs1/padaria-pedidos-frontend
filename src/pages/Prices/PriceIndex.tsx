@@ -17,15 +17,15 @@ export interface IPrice {
 export function PriceIndex(){
     const navigate = useNavigate()
 
-    const {prices, setPrices} = usePrices()
-    const {companies} = useCompanies()
+    const { prices, setPrices } = usePrices()
+    const { companies } = useCompanies()
 
     function handleNewPrice(company: ICompany){
-        navigate('/prices/new', {state: company})
+        navigate(`/prices/${company.id}/new`)
     }
 
     function handleEditPrice(price: IPrice){
-        navigate(`/prices/${price.id}`, {state: price})
+        navigate(`/prices/${price.id}`)
         
     }
 

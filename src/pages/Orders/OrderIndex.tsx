@@ -1,8 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useCompanies } from "../../contexts/useCompanies"
-import { useOrders } from "../../contexts/useOrders"
-import { api } from "../../services/api"
-import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
+import { FiPlus } from "react-icons/fi"
 import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 
@@ -23,14 +21,14 @@ export interface IOrder {
 
 export function OrderIndex(){
     const navigate = useNavigate()
-    const {companies} = useCompanies()
+    const { companies } = useCompanies()
 
     function handleNewOrder(company: ICompany){
-        navigate('/orders/new', {state: company})
+        navigate(`/orders/${company.id}/new`)
     }
 
     function handleShowOrdersByCompany(company: ICompany){
-        navigate(`/orders/company/${company.id}`, {state: company})
+        navigate(`/orders/company/${company.id}`)
     }
 
     return (

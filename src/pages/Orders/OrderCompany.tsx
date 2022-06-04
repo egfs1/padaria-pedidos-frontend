@@ -1,5 +1,4 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom"
-import { useCompanies } from "../../contexts/useCompanies"
+import { useNavigate, useParams } from "react-router-dom"
 import { useOrders } from "../../contexts/useOrders"
 import { api } from "../../services/api"
 import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
@@ -7,30 +6,31 @@ import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 import { IOrder } from "./OrderIndex"
 import { useMonths } from "../../contexts/useMonths"
-
-interface ILocationState {
-    state: ICompany
-}
+import { useEffect, useState } from "react"
 
 export function OrderCompany(){
+    const { company_id } = useParams()
     const navigate = useNavigate()
-    const location = useLocation()
-    const months = useMonths()
-    const {state: company} = location as ILocationState
-    const {orders, setOrders} = useOrders(company.id)
+    const {orders, setOrders} = useOrders(company_id)
+    const months = useMonths().reverse()
+    const [company, setCompany] = useState<ICompany | undefined>()
+
+    useEffect(()=> {
+        api.get(`/companies/${company_id}`).then(response => {
+            setCompany(response.data)
+        })
+    }, [company_id])
     
     function handleQuantitative(){
 
     }
 
-    function handleNewOrder(company: ICompany){
-        navigate('/orders/new', {state: company})
+    function handleNewOrder(){
+        navigate(`/orders/${company?.id}/new`)
     }
 
     function handleEditOrder(order: IOrder){
-        console.log(order)
-        navigate(`/orders/${order.id}`, {state: order})
-        
+        navigate(`/orders/${company?.id}/${order.id}`)
     }
 
     function handleDeleteOrder(order: IOrder){
@@ -50,7 +50,7 @@ export function OrderCompany(){
         <div className="container-xl">
             <hr/>
             <div className="card-header">
-                <h2>{company.name}</h2>
+                <h2>{company?.name}</h2>
                 <hr />
                 <button onClick={()=> handleGoBack()} className="btn btn-primary">Voltar</button>
             </div>
@@ -67,7 +67,7 @@ export function OrderCompany(){
                                             <button onClick={()=> handleQuantitative()} className="btn btn-primary" style={{float:"left"}}>Quantitativo</button>
                                         </div>
                                         <div className="new-order">
-                                            <Button onClick={()=> handleNewOrder(company)} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                            <Button onClick={()=> handleNewOrder()} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                                         </div>
                                     </div>
                                 </div>
@@ -84,10 +84,10 @@ export function OrderCompany(){
                             </thead>
                             <tbody>
                             {orders.map((order, orderKey) => {
-                                    if(new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', month: '2-digit'}) === month.number){
+                                    if(new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', month: '2-digit'}) === month.numberAsString){
                                         return (
                                             <tr key={orderKey}>
-                                                <th>{company.name}</th>
+                                                <th>{company?.name}</th>
                                                 <th>{new Date(order.date).toLocaleDateString('pt-BR', {timeZone: 'UTC', month: '2-digit', day: '2-digit'})}</th>
                                                 <th>{order.value.toFixed(2)}</th>
                                                 <th>

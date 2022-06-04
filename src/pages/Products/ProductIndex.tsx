@@ -11,12 +11,10 @@ export interface IProduct {
 
 export function ProductIndex(){
     const navigate = useNavigate()
-
     const {products, setProducts} = useProducts()
     
     function handleEditProduct(product: IProduct){
-        navigate(`/products/${product.id}`, {state: product})
-        
+        navigate(`/products/${product.id}`)
     }
 
     async function handleDeleteProduct(product: IProduct){

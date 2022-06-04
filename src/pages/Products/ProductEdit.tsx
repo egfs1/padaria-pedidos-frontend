@@ -1,23 +1,25 @@
-import { FormEvent,} from "react"
-import { useLocation, useNavigate} from "react-router-dom"
+import { FormEvent, useEffect, useState,} from "react"
+import { useNavigate, useParams} from "react-router-dom"
 import { api } from "../../services/api"
 import { IProduct } from "./ProductIndex"
 
-interface ILocationState {
-    state: IProduct
-}
-
 export function ProductEdit(){
-    const location = useLocation()
+    const { id } = useParams()
     const navigate = useNavigate()
-    const {state: product} = location as ILocationState
+    const [product, setProduct] = useState<IProduct | undefined>()
+
+    useEffect(()=> {
+        api.get(`/products/${id}`).then(response => {
+            setProduct(response.data)
+        })
+    },[id])
 
     async function handleUpdateProduct(event: FormEvent){
         event.preventDefault()
 
         const name = (document.getElementById('name') as HTMLInputElement).value
         
-        await api.put(`/products/update/${product.id}`, {name: name})
+        await api.put(`/products/update/${product?.id}`, {name: name})
 
         navigate('/products')
 
@@ -35,7 +37,7 @@ export function ProductEdit(){
                         <input className='form-control' 
                         type="text" 
                         id="name"
-                        defaultValue={product.name}
+                        defaultValue={product?.name}
                         placeholder={product?.name} 
                         required/>
                         <button className="btn btn-primary mt-4">Editar</button>

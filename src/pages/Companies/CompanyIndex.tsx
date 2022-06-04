@@ -11,10 +11,10 @@ export interface ICompany {
 
 export function CompanyIndex() {
     const navigate = useNavigate()
-    const {companies, setCompanies} = useCompanies()
+    const { companies, setCompanies } = useCompanies()
 
     function handleEditCompany(company: ICompany){
-        navigate(`/companies/${company.id}`, {state: company}) 
+        navigate(`/companies/${company.id}`) 
     }
 
     async function handleDeleteCompany(company: ICompany){

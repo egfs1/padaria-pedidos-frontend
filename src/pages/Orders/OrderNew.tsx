@@ -1,14 +1,10 @@
 import { FormEvent, useEffect, useState } from "react"
 import { FiPlus, FiX } from "react-icons/fi"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { usePrices } from "../../contexts/usePrices"
 import { api } from "../../services/api"
 import { ICompany } from "../Companies/CompanyIndex"
-
-interface ILocationState {
-    state: ICompany
-}
 
 interface ISubOrder {
     index: number
@@ -19,11 +15,17 @@ interface ISubOrder {
 
 var numeration = 0
 export function OrderNew(){
+    const { company_id } = useParams()
     const navigate = useNavigate()
-    const location = useLocation()
-    const {state: company} = location as ILocationState
+    const {prices: products} = usePrices(company_id)
     const [subOrders, setSubOrders] = useState<ISubOrder[]>([])
-    const {prices: products} = usePrices(company.id)
+    const [company, setCompany] = useState<ICompany | undefined>()
+
+    useEffect(()=> {
+        api.get(`/companies/${company_id}`).then(response => {
+            setCompany(response.data)
+        })
+    },[company_id])
 
     function handleDelete(index: number){
         const newArray = subOrders.filter((filteredSubOrder, _) => index !== filteredSubOrder.index)
@@ -51,7 +53,7 @@ export function OrderNew(){
             quantity.push(parseFloat(subOrder.quantity))
         })
 
-        await api.post('/orders/save', {company_id: company.id, date: date, product_id, product_price, quantity})
+        await api.post('/orders/save', {company_id: company?.id, date: date, product_id, product_price, quantity})
         
         window.location.reload()
     }
@@ -97,7 +99,7 @@ export function OrderNew(){
     }
 
     function handleGoBack(){
-        navigate(`/orders/company/${company.id}`, {state: company})
+        navigate(`/orders/company/${company?.id}`, {state: company})
     }
 
     return (
@@ -113,7 +115,7 @@ export function OrderNew(){
                     <form id='form' onSubmit={handleSendOrder}  className="needs-validation" name="form" method="POST" action='/orders/save'>
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required>
-                                <option value={company.id}>{company.name}</option>
+                                <option value={company?.id}>{company?.name}</option>
                         </select>
                         <div className="invalid-feedback">
                             Opção inválida

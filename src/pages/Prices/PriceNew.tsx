@@ -1,18 +1,19 @@
-import { FormEvent} from "react"
-import { useLocation} from "react-router-dom"
+import { FormEvent, useEffect, useState} from "react"
+import { useParams } from "react-router-dom"
 import { useProducts } from "../../contexts/useProducts"
 import { api } from "../../services/api"
 import { ICompany } from "../Companies/CompanyIndex"
 
-interface ILocationState {
-    state: ICompany
-}
-
-
 export function PriceNew() {
-    const location = useLocation()
-    const {products} = useProducts()
-    const {state: company} = location as ILocationState
+    const { company_id } = useParams()
+    const { products } = useProducts()
+    const [company, setCompany] = useState<ICompany | undefined>()
+
+    useEffect(()=> {
+        api.get(`/companies/${company_id}`).then(response => {
+            setCompany(response.data)
+        })
+    }, [company_id])
 
     async function handleSendPrice(event: FormEvent){
         event.preventDefault()
@@ -37,7 +38,7 @@ export function PriceNew() {
                     <form onSubmit={handleSendPrice} method="POST" className="needs-validation">
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required>
-                                <option value={company.id}>{company.name}</option>
+                                <option value={company?.id}>{company?.name}</option>
                         </select>
                         <div className="invalid-feedback">
                             Opção inválida

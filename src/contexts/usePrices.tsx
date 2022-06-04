@@ -7,7 +7,7 @@ export function usePrices(company_id?: string) {
 
     useEffect(()=>{
         if(company_id !== undefined){
-            api.get(`/prices/find_by_company/${company_id}`).then(response => {
+            api.get(`/prices/company/${company_id}`).then(response => {
                 setPrices(response.data)
             })
         }else {
@@ -15,7 +15,7 @@ export function usePrices(company_id?: string) {
                 setPrices(response.data)
             })
         }
-    }, [])
+    }, [company_id])
 
     return {prices, setPrices}
 }   

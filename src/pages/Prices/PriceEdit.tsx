@@ -1,25 +1,25 @@
-import { FormEvent } from "react"
-import { useLocation, useNavigate} from "react-router-dom"
+import { FormEvent, useEffect, useState } from "react"
+import { useNavigate, useParams} from "react-router-dom"
 import { api } from "../../services/api"
 import { IPrice } from "./PriceIndex"
 
-
-interface ILocationState {
-    state: IPrice
-}
-
 export function PriceEdit(){
-
+    const { id } = useParams()
     const navigate = useNavigate()
-    const location = useLocation()
-    const {state: price} = location as ILocationState
+    const [price, setPrice] = useState<IPrice | undefined>()
+
+    useEffect(()=> {
+        api.get(`/prices/${id}`).then(response => {
+            setPrice(response.data)
+        })
+    }, [id])
 
     async function handleUpdatePrice(event: FormEvent){
         event.preventDefault()
 
         const _price = parseFloat((document.getElementById('price') as HTMLInputElement).value)
         
-        await api.put(`/prices/update/${price.id}`, {price: _price})
+        await api.put(`/prices/update/${price?.id}`, {price: _price})
 
         navigate('/prices')
 
@@ -36,14 +36,14 @@ export function PriceEdit(){
                     <form onSubmit={handleUpdatePrice}  method="POST" className="needs-validation">
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required disabled>
-                                <option value={price.company.id}>{price.company.name}</option>
+                                <option value={price?.company.id}>{price?.company.name}</option>
                         </select>
                         <div className="invalid-feedback">
                             Opção inválida
                         </div>
                         <label className="mt-4">Produto</label>
                         <select id="product_id" className="form-control" required disabled>
-                            <option value={price.product.id}>{price.product.name}</option>
+                            <option value={price?.product.id}>{price?.product.name}</option>
                         </select>
                         <div className="invalid-feedback">
                             Opção inválida
@@ -54,7 +54,7 @@ export function PriceEdit(){
                         type="number" 
                         className="form-control" 
                         step=".01"
-                        defaultValue={price.price}
+                        defaultValue={price?.price}
                         required />
                         <div className="invalid-feedback">
                             Valor inválido

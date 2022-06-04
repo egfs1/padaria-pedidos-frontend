@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom"
 import { api } from "../../services/api"
 
 export function ProductNew(){
-
     const navigate = useNavigate()
 
     async function handleSendProduct(event: FormEvent){

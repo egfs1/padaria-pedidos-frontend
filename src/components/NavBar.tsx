@@ -1,7 +1,7 @@
 export function NavBar() {
     return (
         <nav className="navbar navbar-expand navbar-dark bg-primary" style={{display: 'grid',justifyContent: 'center', alignItems: 'center'}}>
-            <a className="navbar-brand mx-3" href='/' style={{display:'flex',justifyContent:'center'}}>
+            <a className="navbar-brand mx-3" href='/orders' style={{display:'flex',justifyContent:'center'}}>
                 Sabor do Trigo
             </a>
             <div style={{display: 'flex',justifyContent: 'center', alignItems: 'center'}}>

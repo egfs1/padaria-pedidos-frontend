@@ -8,8 +8,8 @@ export function OrdersRouter(){
     return (
         <Routes>
             <Route path="/" element={<OrderIndex />}/>
-            <Route path="/new" element={<OrderNew />}/>
-            <Route path="/:id" element={<OrderEdit />}/>
+            <Route path="/:company_id/new" element={<OrderNew />}/>
+            <Route path="/:company_id/:id" element={<OrderEdit />}/>
             <Route path="/company/:company_id" element={<OrderCompany />}/>
         </Routes>
     )

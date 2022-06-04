@@ -2,51 +2,63 @@ export function useMonths(){
     const months = [
         {
             name: "Janeiro",
-            number: '01'
+            numberAsString: '01',
+            numberAsIndex: 0,
         },
         {
             name: "Fevereiro",
-            number: '02'
+            numberAsString: '02',
+            numberAsIndex: 1,
         },
         {
             name: "Março",
-            number: '03'
+            numberAsString: '03',
+            numberAsIndex: 2
         },
         {
             name: "Abril",
-            number: '04'
+            numberAsString: '04',
+            numberAsIndex: 3,
         },
         {
             name: "Maio",
-            number: '05'
+            numberAsString: '05',
+            numberAsIndex: 4,
         },
         {
             name: "Junho",
-            number: '06'
+            numberAsString: '06',
+            numberAsIndex: 5,
         },
         {
             name: "Julho",
-            number: '07'
+            numberAsString: '07',
+            numberAsIndex: 6,
         },
         {
             name: "Agosto",
-            number: '08'
+            numberAsString: '08',
+            numberAsIndex: 7,
         },
         {
             name: "Setembro",
-            number: '09'
+            numberAsString: '09',
+            numberAsIndex: 8,
         },
         {
             name: "Outubro",
-            number: '10'
+            numberAsString: '10',
+            numberAsIndex: 9,
         },
         {
             name: "Novembro",
-            number: '11'
+            numberAsString: '11',
+            numberAsIndex: 10,
         },
         {
             name: "Dezembro",
-            number: '12'
+            numberAsString: '12',
+            numberAsIndex: 11,
         }
     ]
 

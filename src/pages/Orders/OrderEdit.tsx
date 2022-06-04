@@ -1,15 +1,10 @@
 import { FormEvent, useEffect, useState } from "react"
 import { FiPlus, FiX } from "react-icons/fi"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { Button } from "../../components/Button"
 import { usePrices } from "../../contexts/usePrices"
 import { api } from "../../services/api"
 import { IOrder } from "./OrderIndex"
-
-
-interface ILocationState {
-    state: IOrder
-}
 
 interface ISubOrder {
     id?: string
@@ -20,11 +15,18 @@ interface ISubOrder {
 }
 
 export function OrderEdit(){
+    const { id, company_id } = useParams()
     const navigate = useNavigate()
-    const location = useLocation()
-    const {state: order} = location as ILocationState
-    const {prices: products} = usePrices(order.company.id)
-    const [subOrders, setSubOrders] = useState<ISubOrder[]>(order.sub_orders)
+    const {prices: products} = usePrices(company_id)
+    const [order, setOrder] = useState<IOrder | undefined>()
+    const [subOrders, setSubOrders] = useState<ISubOrder[]>([])
+    
+    useEffect(()=> {
+        api.get(`/orders/${id}`).then(response => {
+            setOrder(response.data)
+            setSubOrders(response.data.sub_orders)
+        })
+    },[id])
 
     useEffect(()=> {
         const newArray = [...subOrders]
@@ -34,6 +36,7 @@ export function OrderEdit(){
             }
         })
         setSubOrders(newArray)
+        // eslint-disable-next-line
     },[products])
 
     function getProductPriceByProductId(product_id: string){
@@ -94,13 +97,13 @@ export function OrderEdit(){
     async function handleUpdateOrder(event: FormEvent){
         event.preventDefault()
 
-        await api.put(`/orders/update/${order.id}`, {subOrders: subOrders})
+        await api.put(`/orders/update/${order?.id}`, {subOrders: subOrders})
 
         navigate('/orders')
     }
 
     function handleGoBack(){
-        navigate(`/orders/company/${order.company.id}`, {state: order.company})
+        navigate(`/orders/company/${order?.company.id}`, {state: order?.company})
     }
 
     return (
@@ -116,13 +119,17 @@ export function OrderEdit(){
                     <form onSubmit={handleUpdateOrder} id='form'  className="needs-validation" name="form" method="POST" action='/orders/save'>
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required>
-                                <option value={order.company.id}>{order.company.name}</option>
+                                <option value={order?.company.id}>{order?.company.name}</option>
                         </select>
                         <div className="invalid-feedback">
                             Opção inválida
                         </div>
                         <label className="mt-2">Data</label>
-                        <input  id="date" className='form-control' type="date" min="2022-01-01" max="2022-12-31" defaultValue={new Date(order.date).toLocaleDateString('en-CA', {timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit'})}  required />
+
+                        {order !== undefined && (
+                            <input  id="date" className='form-control' type="date" min="2022-01-01" max="2022-12-31" defaultValue={new Date(order.date).toLocaleDateString('en-CA', {timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit'})}  required />
+                        )}
+
                         <div className="invalid-feedback">
                             Data inválida
                         </div>

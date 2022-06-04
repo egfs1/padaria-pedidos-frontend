@@ -1,25 +1,25 @@
-import { FormEvent } from "react"
-import { useLocation, useNavigate} from "react-router-dom"
+import { FormEvent, useEffect, useState } from "react"
+import { useNavigate, useParams} from "react-router-dom"
 import { api } from "../../services/api"
 import { ICompany } from "./CompanyIndex"
 
-interface ILocationState {
-    state: ICompany
-}
-
-
 export function CompanyEdit() {
-    const location = useLocation()
+    const { id } = useParams()
     const navigate = useNavigate()
-    const {state: company} = location as ILocationState
+    const [company, setCompany] = useState<ICompany | undefined>()
+
+    useEffect(()=> {
+        api.get(`/companies/${id}`).then(response => {
+            setCompany(response.data)
+        })
+    }, [id])
 
     async function handleUpdateCompany(event: FormEvent){
         event.preventDefault()
 
         const name = (document.getElementById('name') as HTMLInputElement).value
         
-        await api.put(`/companies/update/${company.id}`, {name: name})
-
+        await api.put(`/companies/update/${company?.id}`, {name: name})
         navigate('/companies')
 
     }
@@ -37,8 +37,8 @@ export function CompanyEdit() {
                         className='form-control' 
                         type="text" 
                         id='name'
-                        defaultValue={company.name}
-                        placeholder={company.name} 
+                        defaultValue={company?.name}
+                        placeholder={company?.name} 
                         required />
                         <button type="submit" className="btn btn-primary mt-4">Salvar</button>
                     </form>
