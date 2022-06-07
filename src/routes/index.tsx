@@ -1,17 +1,14 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { CompaniesRouter } from "./CompaniesRouter";
-import { OrdersRouter } from "./OrdersRouter";
-import { PricesRouter } from "./PricesRouter";
-import { ProductsRouter } from "./ProductsRouter";
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+import { SignIn } from "../pages/User/SignIn";
+import { PrivateRoutes } from "./PrivateRoutes";
 
 export function Router(){
+
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/products/*"  element={<ProductsRouter />}/>
-                <Route path="/companies/*" element={<CompaniesRouter />}/>
-                <Route path="/prices/*" element={<PricesRouter />}/>
-                <Route path="/orders/*" element={<OrdersRouter />}/>
+                <Route path="/login" element={<SignIn />}/>
+                <Route path='/*' element={<PrivateRoutes/>}/>
             </Routes>
         </BrowserRouter>
     )

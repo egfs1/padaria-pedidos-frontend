@@ -24,7 +24,11 @@ export function AuthProvider({ children }: any){
 
         if (token){
             setIsAuthenticated(true)
-            setIsAdmin(Boolean(isAdmin))
+            if(isAdmin === "true"){
+                setIsAdmin(true)
+            }else {
+                setIsAdmin(false)
+            }
             api.defaults.headers['Authorization'] = `Bearer ${token}`
         }
 
@@ -32,7 +36,6 @@ export function AuthProvider({ children }: any){
 
     async function signIn({ username, password } : ISignIn){
         const response = await api.post('/auth', {username, password})
-        console.log(response.data)
 
         const {token, isAdmin} = response.data
 

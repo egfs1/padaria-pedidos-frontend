@@ -6,6 +6,7 @@ import { OrderNew } from "../pages/Orders/OrderNew";
 import { OrderQuantitative } from "../pages/Orders/OrderQuantitative";
 
 export function OrdersRouter(){
+
     return (
         <Routes>
             <Route path="/" element={<OrderIndex />}/>
