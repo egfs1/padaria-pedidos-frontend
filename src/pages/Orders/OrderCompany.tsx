@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from "react-router-dom"
-import { useOrders } from "../../contexts/useOrders"
+import { useOrders } from "../../hooks/useOrders"
 import { api } from "../../services/api"
 import { FiTrash, FiEdit, FiPlus } from "react-icons/fi"
 import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 import { IOrder } from "./OrderIndex"
-import { getAllMonths } from "../../contexts/useMonths"
+import { getAllMonths } from "../../hooks/useMonths"
 import { useEffect, useState } from "react"
 
 export function OrderCompany(){

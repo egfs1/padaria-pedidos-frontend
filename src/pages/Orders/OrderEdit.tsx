@@ -2,7 +2,7 @@ import { FormEvent, useEffect, useState } from "react"
 import { FiPlus, FiX } from "react-icons/fi"
 import { useNavigate, useParams } from "react-router-dom"
 import { Button } from "../../components/Button"
-import { usePrices } from "../../contexts/usePrices"
+import { usePrices } from "../../hooks/usePrices"
 import { api } from "../../services/api"
 import { IOrder } from "./OrderIndex"
 

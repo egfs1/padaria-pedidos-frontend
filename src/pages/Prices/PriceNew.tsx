@@ -1,6 +1,6 @@
 import { FormEvent, useEffect, useState} from "react"
 import { useParams } from "react-router-dom"
-import { useProducts } from "../../contexts/useProducts"
+import { useProducts } from "../../hooks/useProducts"
 import { api } from "../../services/api"
 import { ICompany } from "../Companies/CompanyIndex"
 

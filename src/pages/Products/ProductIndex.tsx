@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { Button } from "../../components/Button"
-import { useProducts } from "../../contexts/useProducts"
+import { useProducts } from "../../hooks/useProducts"
 import { api } from "../../services/api"
 import { FiTrash, FiEdit } from "react-icons/fi"
 
