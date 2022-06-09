@@ -10,6 +10,7 @@ interface IAuthContext {
     isAuthenticated: boolean
     isAdmin: boolean
     signIn: (data : ISignIn) => Promise<void>
+    signOut: () => void
 }
 
 export const AuthContext = createContext({} as IAuthContext)
@@ -48,8 +49,18 @@ export function AuthProvider({ children }: any){
         api.defaults.headers['Authorization'] = `Bearer ${token}`
     }
 
+    function signOut(){
+        localStorage.removeItem('@SaborDoTrigo.accessToken')
+        localStorage.removeItem('@SaborDoTrigo.isAdmin')
+
+        setIsAuthenticated(false)
+        setIsAdmin(false)
+
+        api.defaults.headers['Authorization'] = ``
+    }
+
     return (
-        <AuthContext.Provider value={{isAuthenticated, isAdmin, signIn}}>
+        <AuthContext.Provider value={{isAuthenticated, isAdmin, signIn, signOut}}>
             {children}
         </AuthContext.Provider>
     )

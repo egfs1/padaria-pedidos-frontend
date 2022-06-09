@@ -1,0 +1,42 @@
+#main-navbar button:focus {
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    padding: 58px 0 0; /* Height of navbar */
+    width: 100%;
+    z-index: 600;
+}
+  
+.sidebar-sticky {
+  top: 0;
+  height: auto;
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+}
+
+.list-group-custom-item {
+  height: 50px;
+  border-radius: 8px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  background: #f8f9fa;
+  padding: 0 12px;
+  text-decoration: none;
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 500;
+}

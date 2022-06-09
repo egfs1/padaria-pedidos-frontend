@@ -1,5 +1,4 @@
 import { Route, Routes } from "react-router-dom";
-import { NavBar } from "../components/NavBar";
 import { CompaniesRouter } from "./CompaniesRouter";
 import { CustomRoute } from "./CustomRoute";
 import { OrdersRouter } from "./OrdersRouter";
@@ -10,7 +9,6 @@ export function PrivateRoutes(){
 
     return (
         <>
-            <NavBar/>
             <Routes>
                 <Route path="/orders/*" element={
                     <CustomRoute isRoutePrivate>

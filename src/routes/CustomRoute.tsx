@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { Navigate, RouteProps, } from 'react-router-dom'
+import { NavBar } from '../components/NavBar'
 import { AuthContext } from '../contexts/AuthContext'
 
 interface IRoute extends RouteProps {
@@ -17,11 +18,19 @@ export function CustomRoute({ isRoutePrivate = false, isRouteAdmin = false, chil
 
     if(isRouteAdmin){
         if(isAdmin){
-            return children as JSX.Element
+            return (
+                <NavBar>
+                    {children}
+                </NavBar>
+                )
         }
     } else {
         if(isRoutePrivate){
-            return children as JSX.Element
+            return (
+                <NavBar>
+                    {children}
+                </NavBar>
+                )
         }
     }
 

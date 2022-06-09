@@ -1,8 +1,8 @@
 
-export function Button({text,type,icon,...props}: any){
+export function Button({text,type = '',icon,...props}: any){
     
     return(
-        <button type="button" className={"btn " + type} style={{display: 'flex',justifyContent: 'initial', alignItems: 'center', width: '86px'}} {...props}>
+        <button type="button" className={"btn " + type} style={{display: 'flex',justifyContent: 'center', alignItems: 'center', width: '86px'}} {...props}>
             {icon}
             {text}
         </button>        
