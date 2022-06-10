@@ -10,7 +10,7 @@ interface ISubOrder {
     id?: string
     index?: number | undefined
     product_id: string
-    product_price?: number 
+    product_price: number 
     quantity: string
 }
 
@@ -20,24 +20,27 @@ export function OrderEdit(){
     const {prices: products} = usePrices(company_id)
     const [order, setOrder] = useState<IOrder | undefined>()
     const [subOrders, setSubOrders] = useState<ISubOrder[]>([])
+    const [date, setDate] = useState('')
     
     useEffect(()=> {
-        api.get(`/orders/${id}`).then(response => {
-            setOrder(response.data)
-            setSubOrders(response.data.sub_orders)
-        })
-    },[id])
+        if(products !== undefined){
+            api.get(`/orders/${id}`).then(response => {
+                setOrder(response.data)
 
-    useEffect(()=> {
-        const newArray = [...subOrders]
-        newArray.forEach(subOrder => {
-            if (!subOrder.product_price || subOrder.product_price===0){
-                subOrder.product_price = getProductPriceByProductId(subOrder.product_id)
-            }
-        })
-        setSubOrders(newArray)
+                const so = response.data.sub_orders as ISubOrder[]
+
+                so.forEach(subOrder => {
+                    if (!subOrder.product_price || subOrder.product_price===0){
+                        subOrder.product_price = getProductPriceByProductId(subOrder.product_id)
+                    }
+                })
+
+                setSubOrders(so)
+                setDate(response.data.date.toString())
+            })
+        }
         // eslint-disable-next-line
-    },[products])
+    },[id, products])
 
     function getProductPriceByProductId(product_id: string){
         var product_price = 0
@@ -97,9 +100,9 @@ export function OrderEdit(){
     async function handleUpdateOrder(event: FormEvent){
         event.preventDefault()
 
-        await api.put(`/orders/update/${order?.id}`, {subOrders: subOrders})
+        await api.put(`/orders/update/${order?.id}`, {subOrders, date})
 
-        navigate('/orders')
+        navigate(`/orders/company/${company_id}`)
     }
 
     function handleGoBack(){
@@ -127,7 +130,11 @@ export function OrderEdit(){
                         <label className="mt-2">Data</label>
 
                         {order !== undefined && (
-                            <input  id="date" className='form-control' type="date" min="2022-01-01" max="2022-12-31" defaultValue={new Date(order.date).toLocaleDateString('en-CA', {timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit'})}  required />
+                            <input  id="date" className='form-control' type="date" min="2022-01-01" max="2022-12-31" 
+                            defaultValue={new Date(order.date).toLocaleDateString('en-CA', {timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit'})} 
+                            onChange={event => setDate(new Date(event.target.value).toISOString())} 
+                            required 
+                            />
                         )}
 
                         <div className="invalid-feedback">
