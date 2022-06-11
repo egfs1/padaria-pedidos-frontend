@@ -26,7 +26,6 @@ export function CompanyEdit() {
 
     return (
         <div className="container">
-            <hr />
             <div className="card">
                 <div className="card-header">
                     <h2>Editar Empresa</h2>
@@ -40,7 +39,7 @@ export function CompanyEdit() {
                         defaultValue={company?.name}
                         placeholder={company?.name} 
                         required />
-                        <button type="submit" className="btn btn-primary mt-4">Salvar</button>
+                        <button type="submit" className="btn btn-dark mt-4">Salvar</button>
                     </form>
                 </div>
             </div>

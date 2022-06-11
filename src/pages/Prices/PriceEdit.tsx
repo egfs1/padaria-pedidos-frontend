@@ -27,7 +27,6 @@ export function PriceEdit(){
 
     return (
         <div className="container">
-            <hr/>
             <div className="card">
                 <div className="card-header">
                     <h2>Editar Preço</h2>
@@ -59,7 +58,7 @@ export function PriceEdit(){
                         <div className="invalid-feedback">
                             Valor inválido
                         </div>
-                        <button type="submit" className="btn btn-primary mt-4">Salvar</button>
+                        <button type="submit" className="btn btn-dark mt-4">Salvar</button>
                     </form>
                 </div>
             </div>

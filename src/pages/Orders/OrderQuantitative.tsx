@@ -33,7 +33,6 @@ export function OrderQuantitative() {
 
     return (
     <div className="container-xl">
-        <hr/>
         <div className="card-header">
             <h2>{company?.name}</h2>
             <hr />

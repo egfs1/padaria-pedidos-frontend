@@ -18,7 +18,6 @@ export function CompanyNew(){
 
     return (
         <div className="container">
-            <hr />
             <div className="card">
                 <div className="card-header">
                     <h2>Nova Empresa</h2>
@@ -30,7 +29,7 @@ export function CompanyNew(){
                         type="text" 
                         id='name'
                         placeholder='Nome da Empresa' required />
-                        <button type="submit" className="btn btn-primary mt-4">Salvar</button>
+                        <button type="submit" className="btn btn-dark mt-4">Salvar</button>
                     </form>
                 </div>
             </div>

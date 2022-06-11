@@ -12,8 +12,9 @@ export function OrderCompany(){
     const { company_id } = useParams()
     const navigate = useNavigate()
     const {orders, setOrders} = useOrders(company_id)
-    const months = getAllMonths()
+    const months = [...getAllMonths()].reverse()
     const [company, setCompany] = useState<ICompany | undefined>()
+    console.log(months)
 
     useEffect(()=> {
         api.get(`/companies/${company_id}`).then(response => {
@@ -48,11 +49,10 @@ export function OrderCompany(){
 
     return (
         <div className="container-xl">
-            <hr/>
             <div className="card-header">
                 <h2>{company?.name}</h2>
                 <hr />
-                <button onClick={()=> handleGoBack()} className="btn btn-primary">Voltar</button>
+                <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
             </div>
             {months.map((month,monthKey)=> {
                 return (
@@ -64,10 +64,10 @@ export function OrderCompany(){
                                     <hr/>
                                     <div className="col col-12">
                                         <div className="quantitative">
-                                            <button onClick={()=> handleQuantitative(month.numberAsString)} className="btn btn-primary" style={{float:"left"}}>Quantitativo</button>
+                                            <button onClick={()=> handleQuantitative(month.numberAsString)} className="btn btn-dark" style={{float:"left"}}>Quantitativo</button>
                                         </div>
                                         <div className="new-order">
-                                            <Button onClick={()=> handleNewOrder()} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                            <Button onClick={()=> handleNewOrder()} type="btn-dark rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                                         </div>
                                     </div>
                                 </div>

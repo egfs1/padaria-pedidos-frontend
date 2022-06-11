@@ -33,7 +33,6 @@ export function OrderIndex(){
 
     return (
         <div className="container-xl">
-            <hr/>
             <div className="card-header">
                 <h2>Pedidos</h2>
             </div>
@@ -47,11 +46,11 @@ export function OrderIndex(){
                                     <hr/>
                                     <div className="col col-12">
                                         <div className="show-orders-by-company">
-                                            <Button onClick={()=> handleShowOrdersByCompany(company)} text="Ver Pedidos" type="btn-primary" style={{float:"left", height: "42px"}}/>
+                                            <Button onClick={()=> handleShowOrdersByCompany(company)} text="Ver Pedidos" type="btn-dark" style={{float:"left", height: "42px"}}/>
                                         </div>
 
                                         <div className="new-order">
-                                            <Button onClick={()=> handleNewOrder(company)} type="btn-primary rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                            <Button onClick={()=> handleNewOrder(company)} type="btn-dark rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                                         </div>
                                     </div>
                                 </div>

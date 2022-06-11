@@ -27,7 +27,6 @@ export function ProductEdit(){
 
     return (
         <div className="container">
-            <hr/>
             <div className="card">
                 <div className="card-header">
                     <h2>Editar Produto</h2>
@@ -40,7 +39,7 @@ export function ProductEdit(){
                         defaultValue={product?.name}
                         placeholder={product?.name} 
                         required/>
-                        <button className="btn btn-primary mt-4">Editar</button>
+                        <button className="btn btn-dark mt-4">Editar</button>
                     </form>
                 </div>
             </div>

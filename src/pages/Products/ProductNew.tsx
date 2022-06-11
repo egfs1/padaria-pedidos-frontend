@@ -17,7 +17,6 @@ export function ProductNew(){
 
     return (
         <div className="container">
-            <hr/>
             <div className="card">
                 <div className="card-header">
                     <h2>Novo produto</h2>
@@ -29,7 +28,7 @@ export function ProductNew(){
                         id='name' 
                         placeholder='Nome do produto'
                         required />
-                        <button type="submit" className="btn btn-primary mt-4">Cadastrar</button>
+                        <button type="submit" className="btn btn-dark mt-4">Cadastrar</button>
                     </form>
                 </div>
             </div>

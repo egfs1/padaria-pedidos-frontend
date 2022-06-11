@@ -3,6 +3,7 @@ import { FiClipboard, FiDollarSign, FiGrid, FiLogOut, FiMenu, FiUser } from "rea
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import '../styles/navbar.scss'
+import logoImg from '../assets/images/logo.png'
 
 export function NavBar({children}) {
     const navigate = useNavigate()
@@ -16,14 +17,13 @@ export function NavBar({children}) {
     return (
         <>
             <header>
-                <nav id="main-navbar" className="navbar navbar-dark bg-primary fixed-top">
+                <nav id="main-navbar" className="navbar navbar-dark bg-white fixed-top">
                     <div className="container-fluid">
                         <button className="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation" type="button">
-                            <FiMenu  className="navbar-toggler-icon"/>
+                            <FiMenu  className="navbar-toggler-icon" style={{stroke: 'black'}}/>
                         </button>
-                        
-                        <Link className="navbar-brand" to='/orders' style={{display:'flex',justifyContent:'center'}}>
-                            Sabor do Trigo
+                        <Link className="navbar-brand" to='/orders' style={{display:'flex', alignItems: 'center'}}>
+                            <img className="mx-auto" src={logoImg} alt="Logo" style={{width: '110px', height: 'auto', position: 'absolute', left: '0', right: '0'}}/>
                         </Link>
                     </div>
                 </nav>

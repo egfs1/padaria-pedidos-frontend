@@ -10,14 +10,14 @@ interface IRoute extends RouteProps {
 
 export function CustomRoute({ isRoutePrivate = false, isRouteAdmin = false, children}: IRoute) {
 
-    const { isAuthenticated, isAdmin} = useContext(AuthContext)
+    const { isAuthenticated, user } = useContext(AuthContext)
 
     if(!isAuthenticated){
         return <Navigate to="/login" />
     }
 
     if(isRouteAdmin){
-        if(isAdmin){
+        if(user.isAdmin){
             return (
                 <NavBar>
                     {children}

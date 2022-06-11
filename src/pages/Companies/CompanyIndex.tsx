@@ -26,13 +26,16 @@ export function CompanyIndex() {
         }
     }
 
+    function handleNewCompany(){
+        navigate(`/companies/new`) 
+    }
+
     return (
         <div className="container-xl">
-            <hr/>
             <div className="card-header">
                 <h2>Empresas</h2>
                 <hr/>
-                <a className="btn btn-primary" href='/companies/new'>Adicionar nova empresa</a>
+                <button className="btn btn-dark" onClick={handleNewCompany}>Adicionar nova empresa</button>
             </div>
             <table className='table table-bordered'>
                 <thead>

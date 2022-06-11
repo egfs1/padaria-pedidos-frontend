@@ -41,7 +41,6 @@ export function PriceIndex(){
 
     return (
         <div className="container-xl">
-            <hr/>
             <div className="card-header">
                 <h2>Preços</h2>
             </div>
@@ -52,7 +51,7 @@ export function PriceIndex(){
                             <div className="card-header">
                                 <h4>{company.name}</h4>
                                 <div className="col col-12">
-                                    <button onClick={()=> handleNewPrice(company)} className="btn btn-primary rounded-circle" style={{float:"right"}}>+</button>
+                                    <button onClick={()=> handleNewPrice(company)} className="btn btn-dark rounded-circle" style={{float:"right"}}>+</button>
                                 </div>
                             </div>
                         </div>

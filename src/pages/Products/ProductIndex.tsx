@@ -27,13 +27,16 @@ export function ProductIndex(){
         }
     }
 
+    function handleNewProduct(){
+        navigate(`/products/new`)
+    }
+
     return (
         <div className="container-xl">
-            <hr/>
             <div className="card-header">
                 <h2>Produtos</h2>
                 <hr/>
-                <a className="btn btn-primary" href='/products/new'>Adicionar novo produto</a>
+                <button className="btn btn-dark" onClick={handleNewProduct}>Adicionar novo produto</button>
             </div>
             <table className='table table-bordered'>
                 <thead>

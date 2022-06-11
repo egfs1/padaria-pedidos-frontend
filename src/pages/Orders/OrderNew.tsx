@@ -109,7 +109,7 @@ export function OrderNew(){
                 <div className="card-header">
                     <h2>Novo Pedido</h2>
                     <hr />
-                    <button onClick={()=> handleGoBack()} className="btn btn-primary">Voltar</button>
+                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form id='form' onSubmit={handleSendOrder}  className="needs-validation" name="form" method="POST" action='/orders/save'>
@@ -170,11 +170,11 @@ export function OrderNew(){
                         </div>
                         <div className="row">
                             <div className="col col-12">
-                                <Button onClick={handleAddSubOrder} type="btn-primary rounded-circle mt-3" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                <Button onClick={handleAddSubOrder} type="btn-dark rounded-circle mt-3" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
                             </div>
                         </div>
                         <hr/>
-                        <button form="form" type="submit" className="btn btn-primary">Cadastrar</button>
+                        <button form="form" type="submit" className="btn btn-dark">Cadastrar</button>
                     </form>
                 </div>
             </div>

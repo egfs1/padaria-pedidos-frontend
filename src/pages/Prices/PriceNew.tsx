@@ -29,7 +29,6 @@ export function PriceNew() {
 
     return (
         <div className="container">
-            <hr/>
             <div className="card">
                 <div className="card-header">
                     <h2>Novo Preço</h2>
@@ -59,7 +58,7 @@ export function PriceNew() {
                         <div className="invalid-feedback">
                             Valor inválido
                         </div>
-                        <button type="submit" className="btn btn-primary mt-4">Cadastrar</button>
+                        <button type="submit" className="btn btn-dark mt-4">Cadastrar</button>
                     </form>
                 </div>
             </div>
