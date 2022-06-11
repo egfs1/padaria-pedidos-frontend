@@ -22,6 +22,7 @@ export function AdminSignUp(){
     async function handleSignUp(data: any){
         
         if(data.password === data.confirmpassword){
+            data.isAdmin = true
             await signUp(data)
 
             navigate('/orders')
