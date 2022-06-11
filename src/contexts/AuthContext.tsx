@@ -6,6 +6,13 @@ export interface ISignIn {
     password: string
 }
 
+export interface ISignUp {
+    confirm: any;
+    username: string
+    password: string
+    isAdmin: boolean
+}
+
 interface IUser {
     username: string
     isAdmin: boolean
@@ -14,6 +21,7 @@ interface IUser {
 interface IAuthContext {
     isAuthenticated: boolean
     user: IUser | null
+    signUp: (data: ISignUp) => Promise<void>
     signIn: (data : ISignIn) => Promise<void>
     signOut: () => void
 }
@@ -35,6 +43,22 @@ export function AuthProvider({ children }: any){
             })
         }
     },[])
+
+    async function signUp({ username, password, isAdmin } : ISignUp){
+        if(isAdmin){
+            const response = await api.post('/users/create-admin', {username, password, isAdmin})
+
+            const {token, user} = response.data
+    
+            localStorage.setItem('@SaborDoTrigo.accessToken', token)
+    
+            setIsAuthenticated(true)
+            setUser(user)
+    
+            api.defaults.headers['Authorization'] = `Bearer ${token}`
+        }
+
+    }
 
     async function signIn({ username, password } : ISignIn){
         const response = await api.post('/auth', {username, password})
@@ -59,7 +83,7 @@ export function AuthProvider({ children }: any){
     }
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, user, signIn, signOut}}>
+        <AuthContext.Provider value={{isAuthenticated, user, signUp, signIn, signOut}}>
             {children}
         </AuthContext.Provider>
     )

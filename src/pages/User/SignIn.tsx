@@ -1,15 +1,24 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { AuthContext, ISignIn } from "../../contexts/AuthContext"
 import logoImg from '../../assets/images/logo.png'
 import { FiLock, FiUser } from "react-icons/fi"
 import '../../styles/signin.scss'
+import { api } from "../../services/api"
+import { Link } from "react-router-dom"
 
 export function SignIn(){
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
     const { signIn, isAuthenticated } = useContext(AuthContext)
+    const [existsAdmin, setExistsAdmin] = useState<boolean | undefined>()
+
+    useEffect(()=> {
+        api.get('/users/exists-admin').then(response => {
+            setExistsAdmin(response.data)
+        })
+    },[])
 
     useEffect(()=> {
         if(isAuthenticated){
@@ -40,6 +49,11 @@ export function SignIn(){
                     </div>
                     <button type="submit" className="btn btn-dark mt-4">Login</button>
                 </form>
+                {existsAdmin !== undefined && !existsAdmin && (
+                    <Link className="admin-signup" to="/admin-signup">
+                        <span>primeira vez? crie um usuário administrador</span>
+                    </Link>
+                )}
             </div>
         </div>
 
