@@ -1,5 +1,8 @@
 import { useContext } from "react";
-import { FiClipboard, FiDollarSign, FiGrid, FiLogOut, FiMenu, FiUser } from "react-icons/fi";
+import { FiLogOut, FiMenu } from "react-icons/fi";
+import { IoMdPricetags, IoIosBusiness } from 'react-icons/io'
+import { BiClipboard } from 'react-icons/bi'
+import { BsGridFill } from 'react-icons/bs'
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthContext";
 import '../styles/navbar.scss'
@@ -30,10 +33,10 @@ export function NavBar({children}) {
 
                 <nav id="sidebarMenu" className="collapse sidebar bg-white">
                     <div className="position-sticky">
-                        <div className="list-group list-group-flush mx-3 mt-4">
+                        <div className="list-group list-group-flush mx-2 mt-4">
                             <Link className='list-group-custom-item list-group-item-action ripple'  to="/orders">
                                 <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                    <FiClipboard/>
+                                    <BiClipboard className="icon"/>
                                     <span>Pedidos</span>
                                 </div>
                             </Link>
@@ -41,28 +44,32 @@ export function NavBar({children}) {
                                 <>
                                     <Link className='list-group-custom-item list-group-item-action ripple' to="/prices">
                                         <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                            <FiDollarSign/>
+                                            <IoMdPricetags className="icon"/>
                                             <span>Preços</span>
                                         </div>
                                     </Link>
                                     <Link className='list-group-custom-item list-group-item-action ripple' to="/companies">
                                         <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                            <FiUser/>
+                                            <IoIosBusiness className="icon"/>
                                             <span>Empresas</span>
                                         </div>
                                     </Link>
                                     <Link  className='list-group-custom-item list-group-item-action ripple' to="/products">
                                         <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                            <FiGrid/>
+                                            <BsGridFill className="icon"/>
                                             <span>Produtos</span>
                                         </div>
                                     </Link>
                                 </>
                             )}
-                            <button className='list-group-custom-item list-group-item-action ripple' onClick={handleSignOut}>
-                                <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                    <FiLogOut/>
-                                    <span>Sair</span>
+                        </div>
+                        <div className="list-footer mx-2 mb-2">
+                            <button onClick={handleSignOut}>
+                                <div className='list-group-custom-item list-group-item-action ripple'>
+                                    <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                                        <FiLogOut className="icon"/>
+                                        <span>Sair</span>
+                                    </div>
                                 </div>
                             </button>
                         </div>
