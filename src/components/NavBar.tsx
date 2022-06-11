@@ -7,7 +7,7 @@ import logoImg from '../assets/images/logo.png'
 
 export function NavBar({children}) {
     const navigate = useNavigate()
-    const { signOut } = useContext(AuthContext)
+    const { signOut, user } = useContext(AuthContext)
 
     function handleSignOut(){
         signOut()
@@ -37,24 +37,28 @@ export function NavBar({children}) {
                                     <span>Pedidos</span>
                                 </div>
                             </Link>
-                            <Link className='list-group-custom-item list-group-item-action ripple' to="/prices">
-                                <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                    <FiDollarSign/>
-                                    <span>Preços</span>
-                                </div>
-                            </Link>
-                            <Link className='list-group-custom-item list-group-item-action ripple' to="/companies">
-                                <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                    <FiUser/>
-                                    <span>Empresas</span>
-                                </div>
-                            </Link>
-                            <Link  className='list-group-custom-item list-group-item-action ripple' to="/products">
-                                <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
-                                    <FiGrid/>
-                                    <span>Produtos</span>
-                                </div>
-                            </Link>
+                            {user.isAdmin && (
+                                <>
+                                    <Link className='list-group-custom-item list-group-item-action ripple' to="/prices">
+                                        <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                                            <FiDollarSign/>
+                                            <span>Preços</span>
+                                        </div>
+                                    </Link>
+                                    <Link className='list-group-custom-item list-group-item-action ripple' to="/companies">
+                                        <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                                            <FiUser/>
+                                            <span>Empresas</span>
+                                        </div>
+                                    </Link>
+                                    <Link  className='list-group-custom-item list-group-item-action ripple' to="/products">
+                                        <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                                            <FiGrid/>
+                                            <span>Produtos</span>
+                                        </div>
+                                    </Link>
+                                </>
+                            )}
                             <button className='list-group-custom-item list-group-item-action ripple' onClick={handleSignOut}>
                                 <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
                                     <FiLogOut/>
@@ -65,7 +69,7 @@ export function NavBar({children}) {
                     </div>
                 </nav>
             </header> 
-            <main style={{marginTop: '58px'}}>
+            <main style={{marginTop: '72px'}}>
                 {children}
             </main>
         </>

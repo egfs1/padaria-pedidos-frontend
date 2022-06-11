@@ -104,7 +104,6 @@ export function OrderNew(){
 
     return (
         <div className="container">
-            <hr/>
             <div className="card">
                 <div className="card-header">
                     <h2>Novo Pedido</h2>
