@@ -20,29 +20,28 @@ export function CustomRoute({ isRoutePrivate = false, isRouteAdmin = false, chil
         return <Navigate to="/login" />
     }
 
-    if (user === undefined){
-        return
+    if (user !== undefined){
+        if(isRouteAdmin){
+            if(user.isAdmin){
+                return (
+                    <NavBar>
+                        {children}
+                    </NavBar>
+                    )
+            }
+        } else {
+            if(isRoutePrivate){
+                return (
+                    <NavBar>
+                        {children}
+                    </NavBar>
+                    )
+            }
+        }
+    
+        return <Navigate to="/orders" />
     }
 
-    if(isRouteAdmin){
-        if(user.isAdmin){
-            return (
-                <NavBar>
-                    {children}
-                </NavBar>
-                )
-        }
-    } else {
-        if(isRoutePrivate){
-            return (
-                <NavBar>
-                    {children}
-                </NavBar>
-                )
-        }
-    }
-
-    return <Navigate to="/orders" />
 
 }
 

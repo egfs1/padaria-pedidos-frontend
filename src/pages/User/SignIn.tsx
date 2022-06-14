@@ -15,15 +15,13 @@ export function SignIn(){
     const [existsAdmin, setExistsAdmin] = useState<boolean | undefined>()
 
     useEffect(()=> {
-        api.get('/users/exists-admin').then(response => {
-            setExistsAdmin(response.data)
-        })
-    },[])
-
-    useEffect(()=> {
         if(isAuthenticated){
             navigate('/orders')
         }
+
+        api.get('/users/exists-admin').then(response => {
+            setExistsAdmin(response.data)
+        })
     },[navigate,isAuthenticated])
 
     async function handleSignIn(data : ISignIn){

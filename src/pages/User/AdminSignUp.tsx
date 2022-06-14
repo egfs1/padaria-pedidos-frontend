@@ -12,19 +12,17 @@ export function AdminSignUp(){
     const { signUp, isAuthenticated } = useContext(AuthContext)
 
     useEffect(()=> {
+        if(isAuthenticated){
+            navigate('/orders')
+        }
+
         api.get('/users/exists-admin').then(response => {
             if(response.data){
                 navigate('/login')
             }
         })
-    },[navigate])
-
-    useEffect(()=> {
-        if(isAuthenticated){
-            navigate('/orders')
-        }
     },[navigate,isAuthenticated])
-
+    
     async function handleSignUp(data: any){
         
         if(data.password === data.confirmpassword){
