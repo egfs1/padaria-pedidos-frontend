@@ -9,7 +9,7 @@ import { AuthContext } from '../../contexts/AuthContext'
 export function AdminSignUp(){
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
-    const { signUp } = useContext(AuthContext)
+    const { signUp, isAuthenticated } = useContext(AuthContext)
 
     useEffect(()=> {
         api.get('/users/exists-admin').then(response => {
@@ -18,6 +18,12 @@ export function AdminSignUp(){
             }
         })
     },[navigate])
+
+    useEffect(()=> {
+        if(isAuthenticated){
+            navigate('/orders')
+        }
+    },[navigate,isAuthenticated])
 
     async function handleSignUp(data: any){
         

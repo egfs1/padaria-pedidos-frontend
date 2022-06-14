@@ -14,7 +14,6 @@ export function OrderCompany(){
     const {orders, setOrders} = useOrders(company_id)
     const months = [...getAllMonths()].reverse()
     const [company, setCompany] = useState<ICompany | undefined>()
-    console.log(months)
 
     useEffect(()=> {
         api.get(`/companies/${company_id}`).then(response => {

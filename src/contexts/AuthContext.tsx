@@ -7,20 +7,19 @@ export interface ISignIn {
 }
 
 export interface ISignUp {
-    confirm: any;
     username: string
     password: string
     isAdmin: boolean
 }
 
-interface IUser {
+export interface IUser {
     username: string
     isAdmin: boolean
 }
 
 interface IAuthContext {
     isAuthenticated: boolean
-    user: IUser | null
+    user: IUser
     signUp: (data: ISignUp) => Promise<void>
     signIn: (data : ISignIn) => Promise<void>
     signOut: () => void
@@ -29,20 +28,28 @@ interface IAuthContext {
 export const AuthContext = createContext({} as IAuthContext)
 
 export function AuthProvider({ children }: any){
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false)
-    const [user, setUser] = useState<IUser | null>(null)
 
-    useEffect(() => {
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
         const token = localStorage.getItem('@SaborDoTrigo.accessToken')
 
-        if (token){ 
+        if(token){
+            api.defaults.headers['Authorization'] = `Bearer ${token}`
+            return true
+        } else {
+            return false
+        }
+    })
+
+    const [user, setUser] = useState<IUser>( async () => {
+        
+        const token = localStorage.getItem('@SaborDoTrigo.accessToken')
+    
+        if(token){
             api.post('/me', {token}).then(response => {
                 setUser(response.data)
-                setIsAuthenticated(true)
-                api.defaults.headers['Authorization'] = `Bearer ${token}`
             })
         }
-    },[])
+    })
 
     async function signUp({ username, password, isAdmin } : ISignUp){
         if(isAdmin){
@@ -77,7 +84,7 @@ export function AuthProvider({ children }: any){
         localStorage.removeItem('@SaborDoTrigo.accessToken')
 
         setIsAuthenticated(false)
-        setUser(null)
+        setUser(undefined)
 
         api.defaults.headers['Authorization'] = ``
     }

@@ -34,7 +34,7 @@ export function PriceNew() {
                     <h2>Novo Preço</h2>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={handleSendPrice} method="POST" className="needs-validation">
+                    <form id="form" onSubmit={handleSendPrice} method="POST" className="needs-validation">
                         <label>Empresa</label>
                         <select id="company_id" className="form-control" required>
                                 <option value={company?.id}>{company?.name}</option>
@@ -58,7 +58,7 @@ export function PriceNew() {
                         <div className="invalid-feedback">
                             Valor inválido
                         </div>
-                        <button type="submit" className="btn btn-dark mt-4">Cadastrar</button>
+                        <button form="form" type="submit" className="btn btn-dark mt-4">Cadastrar</button>
                     </form>
                 </div>
             </div>

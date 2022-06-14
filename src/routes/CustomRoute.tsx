@@ -1,7 +1,7 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Navigate, RouteProps, } from 'react-router-dom'
 import { NavBar } from '../components/NavBar'
-import { AuthContext } from '../contexts/AuthContext'
+import { AuthContext, IUser } from '../contexts/AuthContext'
 
 interface IRoute extends RouteProps {
     isRoutePrivate?: boolean
@@ -10,10 +10,18 @@ interface IRoute extends RouteProps {
 
 export function CustomRoute({ isRoutePrivate = false, isRouteAdmin = false, children}: IRoute) {
 
-    const { isAuthenticated, user } = useContext(AuthContext)
+    const {isAuthenticated, user } = useContext(AuthContext)
+    
+    const pathname = window.location.pathname
 
-    if(!isAuthenticated){
+    const firstPath = pathname.split('/')[1]
+
+    if(!isAuthenticated && firstPath !== 'login'){
         return <Navigate to="/login" />
+    }
+
+    if(user instanceof Promise){
+        return
     }
 
     if(isRouteAdmin){
