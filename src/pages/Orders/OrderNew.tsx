@@ -1,7 +1,6 @@
 import { FormEvent, useEffect, useState } from "react"
-import { FiPlus, FiX } from "react-icons/fi"
+import { IoIosAddCircle, IoIosRemoveCircle } from 'react-icons/io'
 import { useNavigate, useParams } from "react-router-dom"
-import { Button } from "../../components/Button"
 import { usePrices } from "../../hooks/usePrices"
 import { api } from "../../services/api"
 import { ICompany } from "../Companies/CompanyIndex"
@@ -131,7 +130,7 @@ export function OrderNew(){
                                         <hr/>
                                         <div className="card-header">
                                                 <h4>Produto</h4>
-                                                <Button onClick={()=> handleDelete(subOrder.index)} type="btn-danger rounded-circle" icon={<FiX />} style={{float:"right", height: "42px"}}/>
+                                                <IoIosRemoveCircle size="42px" onClick={()=> handleDelete(subOrder.index)} style={{float:"right", cursor: 'pointer', color: 'red'}}/>
                                         </div>
                                         <div className="card-body">
                                             <label>Produto </label>
@@ -169,7 +168,7 @@ export function OrderNew(){
                         </div>
                         <div className="row">
                             <div className="col col-12">
-                                <Button onClick={handleAddSubOrder} type="btn-dark rounded-circle mt-3" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                <IoIosAddCircle size="42px" className="mt-3" onClick={handleAddSubOrder} style={{float:"right", cursor: 'pointer'}}/>
                             </div>
                         </div>
                         <hr/>

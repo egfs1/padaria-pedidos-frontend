@@ -7,6 +7,7 @@ import { ICompany } from "../Companies/CompanyIndex"
 import { IOrder } from "./OrderIndex"
 import { getAllMonths } from "../../hooks/useMonths"
 import { useEffect, useState } from "react"
+import { SiAddthis } from "react-icons/si"
 
 export function OrderCompany(){
     const { company_id } = useParams()
@@ -61,12 +62,12 @@ export function OrderCompany(){
                                 <div className="row">
                                     <h4>{month.name}</h4>
                                     <hr/>
-                                    <div className="col col-12">
+                                    <div className="col col-12" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                                         <div className="quantitative">
                                             <button onClick={()=> handleQuantitative(month.numberAsString)} className="btn btn-dark" style={{float:"left"}}>Quantitativo</button>
                                         </div>
                                         <div className="new-order">
-                                            <Button onClick={()=> handleNewOrder()} type="btn-dark rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                        <SiAddthis size="32px" onClick={()=> handleNewOrder()} style={{cursor: 'pointer'}} />
                                         </div>
                                     </div>
                                 </div>

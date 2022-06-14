@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useCompanies } from "../../hooks/useCompanies"
-import { FiPlus } from "react-icons/fi"
+import { SiAddthis } from 'react-icons/si'
 import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 
@@ -44,13 +44,13 @@ export function OrderIndex(){
                                 <div className="row">
                                     <h4>{company.name}</h4>
                                     <hr/>
-                                    <div className="col col-12">
+                                    <div className="col col-12" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
                                         <div className="show-orders-by-company">
                                             <Button onClick={()=> handleShowOrdersByCompany(company)} text="Ver Pedidos" type="btn-dark" style={{float:"left", height: "42px"}}/>
                                         </div>
 
                                         <div className="new-order">
-                                            <Button onClick={()=> handleNewOrder(company)} type="btn-dark rounded-circle" icon={<FiPlus />} style={{float:"right", height: "42px"}}/>
+                                            <SiAddthis size="32px" onClick={()=> handleNewOrder(company)} style={{cursor: 'pointer'}}/>
                                         </div>
                                     </div>
                                 </div>

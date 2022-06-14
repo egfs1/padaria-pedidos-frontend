@@ -12,7 +12,7 @@ export interface ISignUp {
     isAdmin: boolean
 }
 
-export interface IUser {
+interface IUser {
     username: string
     isAdmin: boolean
 }
@@ -40,8 +40,9 @@ export function AuthProvider({ children }: any){
         }
     })
 
-    const [user, setUser] = useState<IUser>( async () => {
-        
+    const [user, setUser] = useState<IUser>()
+
+    useEffect(()=> {
         const token = localStorage.getItem('@SaborDoTrigo.accessToken')
     
         if(token){
@@ -49,7 +50,7 @@ export function AuthProvider({ children }: any){
                 setUser(response.data)
             })
         }
-    })
+    },[])
 
     async function signUp({ username, password, isAdmin } : ISignUp){
         if(isAdmin){
