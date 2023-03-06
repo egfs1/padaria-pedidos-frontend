@@ -4,6 +4,7 @@ import { CustomRoute } from "./CustomRoute";
 import { OrdersRouter } from "./OrdersRouter";
 import { PricesRouter } from "./PricesRouter";
 import { ProductsRouter } from "./ProductsRouter";
+import { UsersRouter } from "./UsersRouter";
 
 export function PrivateRoutes(){
     return (
@@ -32,6 +33,11 @@ export function PrivateRoutes(){
                 <Route path="/prices/*" element={
                     <CustomRoute isRouteAdmin isRoutePrivate>
                         <PricesRouter />
+                    </CustomRoute>
+                } />
+                <Route path="/users/*" element={
+                    <CustomRoute isRouteAdmin isRoutePrivate>
+                        <UsersRouter />
                     </CustomRoute>
                 } />
             </Routes>

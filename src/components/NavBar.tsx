@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { FiLogOut, FiMenu } from "react-icons/fi";
+import { FiLogOut, FiMenu, FiUserPlus } from "react-icons/fi";
 import { IoMdPricetags, IoIosBusiness } from 'react-icons/io'
 import { BiClipboard } from 'react-icons/bi'
 import { BsGridFill } from 'react-icons/bs'
@@ -58,6 +58,12 @@ export function NavBar({children}) {
                                         <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
                                             <BsGridFill className="icon"/>
                                             <span>Produtos</span>
+                                        </div>
+                                    </Link>
+                                    <Link  className='list-group-custom-item list-group-item-action ripple' to="/users">
+                                        <div className="w-100 h-100" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+                                            <FiUserPlus className="icon"/>
+                                            <span>Usuarios</span>
                                         </div>
                                     </Link>
                                 </>

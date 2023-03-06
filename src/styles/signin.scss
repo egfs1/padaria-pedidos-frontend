@@ -51,6 +51,16 @@
             -webkit-box-shadow: 0 0 0 30px white inset !important;
         }
     }
+
+    .isAdmin-field{
+        margin-top: 16px;
+        padding-left: 8px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        gap: 8px;
+        
+    }
     
     button {
         width: 100%;

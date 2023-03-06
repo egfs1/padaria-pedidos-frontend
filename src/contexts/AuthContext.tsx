@@ -72,23 +72,20 @@ export function AuthProvider({ children }: any){
     }
 
     async function signIn({ username, password } : ISignIn){
-        const response = await api.post('/auth', {username, password}).catch(function (error) {
+        await api.post('/auth', {username, password}).then( function (response){
+            const {token, user} = response.data
+
+            localStorage.setItem('@SaborDoTrigo.accessToken', token)
+
+            setIsAuthenticated(true)
+            setUser(user)
+
+            api.defaults.headers['Authorization'] = `Bearer ${token}`
+        } ).catch(function (error) {
             if(error.response){
-                console.log("entrou aq")
                 setErrorMessage(error.response.data.message)
             }
-
-            return error
         })
-
-        const {token, user} = response.data
-
-        localStorage.setItem('@SaborDoTrigo.accessToken', token)
-
-        setIsAuthenticated(true)
-        setUser(user)
-
-        api.defaults.headers['Authorization'] = `Bearer ${token}`
     }
 
     function signOut(){
