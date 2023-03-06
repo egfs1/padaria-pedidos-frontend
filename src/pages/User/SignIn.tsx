@@ -11,7 +11,7 @@ import { Link } from "react-router-dom"
 export function SignIn(){
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
-    const { signIn, isAuthenticated } = useContext(AuthContext)
+    const { signIn, isAuthenticated, errorMessage } = useContext(AuthContext)
     const [existsAdmin, setExistsAdmin] = useState<boolean | undefined>()
 
     useEffect(()=> {
@@ -45,6 +45,12 @@ export function SignIn(){
                         <input {...register('password')} id="password" name="password" placeholder="Password" type="password" required />
                         <FiLock/>
                     </div>
+                    {
+                    errorMessage != undefined && 
+                    <div className="error-message">
+                        <p>{errorMessage}</p>
+                    </div>
+                    }
                     <button type="submit" className="btn btn-dark mt-4">Login</button>
                 </form>
                 {existsAdmin !== undefined && !existsAdmin && (

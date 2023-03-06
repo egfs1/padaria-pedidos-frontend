@@ -23,6 +23,7 @@ interface IAuthContext {
     signUp: (data: ISignUp) => Promise<void>
     signIn: (data : ISignIn) => Promise<void>
     signOut: () => void
+    errorMessage: string
 }
 
 export const AuthContext = createContext({} as IAuthContext)
@@ -52,6 +53,8 @@ export function AuthProvider({ children }: any){
         }
     },[])
 
+    const [errorMessage, setErrorMessage] = useState<string | undefined>()
+
     async function signUp({ username, password, isAdmin } : ISignUp){
         if(isAdmin){
             const response = await api.post('/users/create-admin', {username, password, isAdmin})
@@ -69,7 +72,14 @@ export function AuthProvider({ children }: any){
     }
 
     async function signIn({ username, password } : ISignIn){
-        const response = await api.post('/auth', {username, password})
+        const response = await api.post('/auth', {username, password}).catch(function (error) {
+            if(error.response){
+                console.log("entrou aq")
+                setErrorMessage(error.response.data.message)
+            }
+
+            return error
+        })
 
         const {token, user} = response.data
 
@@ -91,7 +101,7 @@ export function AuthProvider({ children }: any){
     }
 
     return (
-        <AuthContext.Provider value={{isAuthenticated, user, signUp, signIn, signOut}}>
+        <AuthContext.Provider value={{isAuthenticated, user, signUp, signIn, signOut, errorMessage}}>
             {children}
         </AuthContext.Provider>
     )
