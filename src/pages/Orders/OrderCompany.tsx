@@ -67,7 +67,7 @@ export function OrderCompany(){
                                             <button onClick={()=> handleQuantitative(month.numberAsString)} className="btn btn-dark" style={{float:"left"}}>Quantitativo</button>
                                         </div>
                                         <div className="new-order">
-                                        <SiAddthis size="32px" onClick={()=> handleNewOrder()} style={{cursor: 'pointer'}} />
+                                            <SiAddthis size="32px" onClick={()=> handleNewOrder()} style={{cursor: 'pointer'}} />
                                         </div>
                                     </div>
                                 </div>

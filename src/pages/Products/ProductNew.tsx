@@ -15,11 +15,17 @@ export function ProductNew(){
         navigate('/products')
     }
 
+    function handleGoBack(){
+        navigate('/products')
+    }
+
     return (
         <div className="container">
             <div className="card">
                 <div className="card-header">
                     <h2>Novo produto</h2>
+                    <hr/>
+                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form method="POST" onSubmit={handleSendProduct} className="needs-validation">

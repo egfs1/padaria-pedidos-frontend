@@ -6,6 +6,7 @@ import { FiTrash, FiEdit } from "react-icons/fi"
 import { Button } from "../../components/Button"
 import { ICompany } from "../Companies/CompanyIndex"
 import { IProduct } from "../Products/ProductIndex"
+import { SiAddthis } from "react-icons/si"
 
 export interface IPrice {
     id: string
@@ -49,9 +50,11 @@ export function PriceIndex(){
                     <div key={companyKey}>
                         <div className="card mt-4">
                             <div className="card-header">
-                                <h4>{company.name}</h4>
-                                <div className="col col-12">
-                                    <button onClick={()=> handleNewPrice(company)} className="btn btn-dark rounded-circle" style={{float:"right"}}>+</button>
+                                <div className="col col-12" style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
+                                    <h4>{company.name}</h4>
+                                    <div className="new-price">
+                                        <SiAddthis size="32px" onClick={()=> handleNewPrice(company)} style={{cursor: 'pointer'}} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -119,7 +119,7 @@ export function OrderNew(){
                             Opção inválida
                         </div>
                         <label className="mt-2">Data</label>
-                        <input  id="date" className='form-control' type="date" min="2022-01-01" max="2022-12-31" defaultValue={getDate()}  required />
+                        <input  id="date" className='form-control' type="date" min="2023-01-01" max="2023-12-31" defaultValue={getDate()}  required />
                         <div className="invalid-feedback">
                             Data inválida
                         </div>

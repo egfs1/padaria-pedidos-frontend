@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { getMonth } from "../../hooks/useMonths"
 import { api } from "../../services/api"
 import { ICompany } from "../Companies/CompanyIndex"
@@ -11,7 +11,7 @@ interface IQuantitative {
 }
 
 export function OrderQuantitative() {
-
+    const navigate = useNavigate()
     const { company_id, monthString } = useParams()
     const month = getMonth(monthString!)
     const [company, setCompany] = useState<ICompany | undefined>()
@@ -31,12 +31,17 @@ export function OrderQuantitative() {
         })
     },[company_id,month])
 
+    function handleGoBack(){
+        navigate(`/orders/company/${company_id}`)
+    }
+
     return (
     <div className="container-xl">
         <div className="card-header">
             <h2>{company?.name}</h2>
             <hr />
             <h4>{month?.name}</h4>
+            <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
         </div>
         <table className='table table-bordered'>
             <thead>

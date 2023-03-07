@@ -1,10 +1,11 @@
 import { FormEvent, useEffect, useState} from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useProducts } from "../../hooks/useProducts"
 import { api } from "../../services/api"
 import { ICompany } from "../Companies/CompanyIndex"
 
 export function PriceNew() {
+    const navigate = useNavigate()
     const { company_id } = useParams()
     const { products } = useProducts()
     const [company, setCompany] = useState<ICompany | undefined>()
@@ -27,11 +28,17 @@ export function PriceNew() {
         window.location.reload()
     }
 
+    function handleGoBack(){
+        navigate('/prices')
+    }
+
     return (
         <div className="container">
             <div className="card">
                 <div className="card-header">
                     <h2>Novo Preço</h2>
+                    <hr/>
+                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form id="form" onSubmit={handleSendPrice} method="POST" className="needs-validation">
