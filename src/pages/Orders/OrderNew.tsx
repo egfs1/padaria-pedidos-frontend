@@ -52,7 +52,17 @@ export function OrderNew(){
             quantity.push(parseFloat(subOrder.quantity))
         })
 
+        const alreadyExistsOrderOfThisCompanyToday = await api.post('/orders/exists', { company_id, date })
+
+        if(alreadyExistsOrderOfThisCompanyToday){
+            if(!window.confirm(`Você ja criou um pedido pra essa empresa hoje, deseja criar outro?`)){
+                return
+            }
+        }
+
         await api.post('/orders/save', {company_id: company?.id, date: date, product_id, product_price, quantity})
+
+        await api.post('/logs/save', { type: "CREATE_ORDER", message: `PEDIDO CRIADO PARA A EMPRESA '${company.name}' EM ${date.toLocaleString("pt-BR", { timeZone: "UTC"})}`})
         
         window.location.reload()
     }
