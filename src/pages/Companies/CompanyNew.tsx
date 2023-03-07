@@ -16,7 +16,7 @@ export function CompanyNew(){
         navigate('/companies')
     }
 
-    function handleGoBack(){
+    function handleReturn(){
         navigate('/companies')
     }
 
@@ -26,7 +26,7 @@ export function CompanyNew(){
                 <div className="card-header">
                     <h2>Nova Empresa</h2>
                     <hr/>
-                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
+                    <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form onSubmit={handleSendCompany} className="needs-validation" method="POST">

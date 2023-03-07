@@ -28,7 +28,7 @@ export function PriceNew() {
         window.location.reload()
     }
 
-    function handleGoBack(){
+    function handleReturn(){
         navigate('/prices')
     }
 
@@ -38,7 +38,7 @@ export function PriceNew() {
                 <div className="card-header">
                     <h2>Novo Preço</h2>
                     <hr/>
-                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
+                    <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form id="form" onSubmit={handleSendPrice} method="POST" className="needs-validation">

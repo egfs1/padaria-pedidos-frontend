@@ -31,7 +31,7 @@ export function OrderQuantitative() {
         })
     },[company_id,month])
 
-    function handleGoBack(){
+    function handleReturn(){
         navigate(`/orders/company/${company_id}`)
     }
 
@@ -41,7 +41,7 @@ export function OrderQuantitative() {
             <h2>{company?.name}</h2>
             <hr />
             <h4>{month?.name}</h4>
-            <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
+            <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
         </div>
         <table className='table table-bordered'>
             <thead>

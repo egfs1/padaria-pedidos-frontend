@@ -43,7 +43,7 @@ export function OrderCompany(){
         }
     }
 
-    function handleGoBack(){
+    function handleReturn(){
         navigate(`/orders`)
     }
 
@@ -52,7 +52,7 @@ export function OrderCompany(){
             <div className="card-header">
                 <h2>{company?.name}</h2>
                 <hr />
-                <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
+                <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
             </div>
             {months.map((month,monthKey)=> {
                 return (

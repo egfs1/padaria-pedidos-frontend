@@ -15,7 +15,7 @@ export function UserNew(){
         }
     }
 
-    function handleGoBack(){
+    function handleReturn(){
         navigate('/users')
     }
 
@@ -25,7 +25,7 @@ export function UserNew(){
                 <div className="card-header">
                     <h2>Criar novo usuário</h2>
                     <hr/>
-                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
+                    <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form className="form" onSubmit={handleSubmit(handleCreateUser)}>

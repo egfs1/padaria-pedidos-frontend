@@ -97,7 +97,7 @@ export function OrderNew(){
         setSubOrders(newArray)
     }
 
-    function handleGoBack(){
+    function handleReturn(){
         navigate(`/orders/company/${company?.id}`, {state: company})
     }
 
@@ -107,7 +107,7 @@ export function OrderNew(){
                 <div className="card-header">
                     <h2>Novo Pedido</h2>
                     <hr />
-                    <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
+                    <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
                     <form id='form' onSubmit={handleSendOrder}  className="needs-validation" name="form" method="POST" action='/orders/save'>
