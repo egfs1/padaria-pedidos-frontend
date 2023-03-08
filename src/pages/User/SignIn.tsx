@@ -38,11 +38,11 @@ export function SignIn(){
                 </div>
                 <form className="form" onSubmit={handleSubmit(handleSignIn)}>
                     <div className="username-field">
-                        <input {...register('username')} id="username" name="username" placeholder="Username" type="text" required/>
+                        <input {...register('username')} id="username" name="username" placeholder="Usuário" type="text" required/>
                         <FiUser/>
                     </div>
                     <div className="password-field">
-                        <input {...register('password')} id="password" name="password" placeholder="Password" type="password" required />
+                        <input {...register('password')} id="password" name="password" placeholder="Senha" type="password" required />
                         <FiLock/>
                     </div>
                     {
