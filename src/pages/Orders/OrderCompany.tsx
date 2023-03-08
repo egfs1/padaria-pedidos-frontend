@@ -20,6 +20,12 @@ export function OrderCompany(){
         api.get(`/companies/${company_id}`).then(response => {
             setCompany(response.data)
         })
+
+        const currentMonth = new Date(Date.now()).getMonth()
+        const currentMonthName = months[12-(currentMonth+1)].name
+        
+        var element = document.getElementById(currentMonthName);
+        element.scrollIntoView();
     }, [company_id])
     
     function handleQuantitative(month: string){
@@ -56,7 +62,7 @@ export function OrderCompany(){
             </div>
             {months.map((month,monthKey)=> {
                 return (
-                    <div key={monthKey}>
+                    <div key={monthKey} id={month.name}>
                         <div className="card mt-4">
                             <div className="card-header">
                                 <div className="row">
