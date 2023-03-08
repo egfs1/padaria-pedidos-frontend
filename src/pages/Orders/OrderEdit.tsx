@@ -117,78 +117,79 @@ export function OrderEdit(){
                     <button onClick={()=> handleGoBack()} className="btn btn-dark">Voltar</button>
                 </div>
                 <div className="card-body">
-                    <form onSubmit={handleUpdateOrder} id='form'  className="needs-validation" name="form" method="POST" action='/orders/save'>
-                        <label>Empresa</label>
-                        <select id="company_id" className="form-control" required>
-                                <option value={order?.company.id}>{order?.company.name}</option>
-                        </select>
-                        <div className="invalid-feedback">
-                            Opção inválida
-                        </div>
-                        <label className="mt-2">Data</label>
-
-                        {order !== undefined && (
-                            <input  id="date" className='form-control' type="date" min="2022-01-01" max="2022-12-31" 
-                            defaultValue={new Date(order.date).toLocaleDateString('en-CA', {timeZone: 'UTC', year: 'numeric', month: '2-digit', day: '2-digit'})} 
-                            onChange={event => setDate(new Date(event.target.value).toISOString())} 
-                            required 
-                            />
-                        )}
-
-                        <div className="invalid-feedback">
-                            Data inválida
-                        </div>
-                        <div id="suborders">
-                            {subOrders.map((subOrder, key)=> {
-                                return(
-                                    <div key={key} id={subOrder.index===undefined ? setSubOrderIndexIfNotExist(subOrder, key) : subOrder.index + ""}>
-                                        <hr/>
-                                        <div className="card-header">
-                                                <h4>Produto</h4>
-                                                <IoIosRemoveCircle size="42px" onClick={()=> handleDelete(subOrder.index!)} style={{float:"right", cursor: 'pointer', color: 'red'}}/>
-                                        </div>
-                                        <div className="card-body">
-                                            <label>Produto </label>
-                                            <select 
-                                            name="product_id" 
-                                            className="form-control"
-                                            onChange={event => onChangeProductId( subOrder.index!, event.target.value)}
-                                            value={subOrder.product_id}
-                                            required>
-                                                {products.map((product, productKey)=> {
-                                                    return (
-                                                        <option key={productKey} value={product.product.id}>{product.product.name}</option>
-                                                    )
-                                                })}
-                                            </select>
-                                            <div className="invalid-feedback">
-                                                Produto inválido
-                                            </div>
-                                            <label className="mt-4">Quantidade</label>
-                                            <input 
-                                            name="quantity" 
-                                            type="number"
-                                            className="form-control"
-                                            onChange={event => onChangeQuantity(subOrder.index!, event.target.value)}
-                                            value={subOrder.quantity}
-                                            step=".01" 
-                                            required />
-                                            <div className="invalid-feedback">
-                                                Quantidade inválida
-                                            </div>
-                                        </div>
-                                    </div>                                    
-                                )
-                            })}
-                        </div>
-                        <div className="row">
-                            <div className="col col-12">
-                            <IoIosAddCircle size="42px" className="mt-3" onClick={handleAddSubOrder} style={{float:"right", cursor: 'pointer'}}/>
+                    {order != undefined &&
+                        <form onSubmit={handleUpdateOrder} id='form'  className="needs-validation" name="form" method="POST" action='/orders/save'>
+                            <label>Empresa</label>
+                            <select id="company_id" className="form-control" required>
+                                    <option value={order.company.id}>{order.company.name}</option>
+                            </select>
+                            <div className="invalid-feedback">
+                                Opção inválida
                             </div>
-                        </div>
-                        <hr/>
-                        <button form="form" type="submit" className="btn btn-dark">Editar</button>
-                    </form>
+                            <label className="mt-2">Data</label>
+
+                            <input  
+                                id="date" className='form-control' type="date" min="2023-01-01" max="2023-12-31"
+                                defaultValue={new Date(order.date).toISOString().split("T")[0]} 
+                                onChange={event => setDate(new Date(event.target.value).toISOString())} 
+                                required 
+                            />
+
+                            <div className="invalid-feedback">
+                                Data inválida
+                            </div>
+                            <div id="suborders">
+                                {subOrders.map((subOrder, key)=> {
+                                    return(
+                                        <div key={key} id={subOrder.index===undefined ? setSubOrderIndexIfNotExist(subOrder, key) : subOrder.index + ""}>
+                                            <hr/>
+                                            <div className="card-header">
+                                                    <h4>Produto</h4>
+                                                    <IoIosRemoveCircle size="42px" onClick={()=> handleDelete(subOrder.index!)} style={{float:"right", cursor: 'pointer', color: 'red'}}/>
+                                            </div>
+                                            <div className="card-body">
+                                                <label>Produto </label>
+                                                <select 
+                                                name="product_id" 
+                                                className="form-control"
+                                                onChange={event => onChangeProductId( subOrder.index!, event.target.value)}
+                                                value={subOrder.product_id}
+                                                required>
+                                                    {products.map((product, productKey)=> {
+                                                        return (
+                                                            <option key={productKey} value={product.product.id}>{product.product.name}</option>
+                                                        )
+                                                    })}
+                                                </select>
+                                                <div className="invalid-feedback">
+                                                    Produto inválido
+                                                </div>
+                                                <label className="mt-4">Quantidade</label>
+                                                <input 
+                                                name="quantity" 
+                                                type="number"
+                                                className="form-control"
+                                                onChange={event => onChangeQuantity(subOrder.index!, event.target.value)}
+                                                value={subOrder.quantity}
+                                                step=".01" 
+                                                required />
+                                                <div className="invalid-feedback">
+                                                    Quantidade inválida
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    )
+                                })}
+                            </div>
+                            <div className="row">
+                                <div className="col col-12">
+                                <IoIosAddCircle size="42px" className="mt-3" onClick={handleAddSubOrder} style={{float:"right", cursor: 'pointer'}}/>
+                                </div>
+                            </div>
+                            <hr/>
+                            <button form="form" type="submit" className="btn btn-dark">Editar</button>
+                        </form>
+                    }
                 </div>
             </div>
         </div>        
