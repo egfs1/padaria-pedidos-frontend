@@ -52,15 +52,24 @@ export function OrderQuantitative() {
                 </tr>
             </thead>
             <tbody>
-                {quantitatives?.map((quantitative, quantitativeKey) => {
-                    return (
-                        <tr key={quantitativeKey}>
-                            <th>{quantitative.product}</th>
-                            <th>{quantitative.quantity}</th>
-                            <th>{quantitative.value.toFixed(2)}</th>
-                        </tr>
-                    )
-                })}
+                {quantitatives != undefined && 
+                <>
+                    {quantitatives.map((quantitative, quantitativeKey) => {
+                        return (
+                            <tr key={quantitativeKey}>
+                                <th>{quantitative.product}</th>
+                                <th>{quantitative.quantity}</th>
+                                <th>{quantitative.value.toFixed(2)}</th>
+                            </tr>
+                        )
+                    })}
+                    <tr>
+                        <th>Total</th>
+                        <th></th>
+                        <th>{quantitatives.reduce((total, current) => total + current.value, 0)}</th>
+                    </tr>
+                </>
+                }
             </tbody>
         </table>
         <p className="text-center fst-italic fs-6 fw-bold text-break mx-4" style={{color: 'black'}}>Dias Faltando: {daysLeft.toString()}</p>

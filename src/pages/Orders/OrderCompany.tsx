@@ -60,7 +60,7 @@ export function OrderCompany(){
                 <hr />
                 <button onClick={()=> handleReturn()} className="btn btn-dark">Voltar</button>
             </div>
-            {months.map((month,monthKey)=> {
+            {orders != undefined && months.map((month,monthKey)=> {
                 return (
                     <div key={monthKey} id={month.name}>
                         <div className="card mt-4">
