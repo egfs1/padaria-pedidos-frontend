@@ -12,7 +12,7 @@ import { SiAddthis } from "react-icons/si"
 export function OrderCompany(){
     const { company_id } = useParams()
     const navigate = useNavigate()
-    const {orders, setOrders} = useOrders(company_id)
+    const {orders = undefined, setOrders} = useOrders(company_id)
     const months = [...getAllMonths()].reverse()
     const [company, setCompany] = useState<ICompany | undefined>()
 
