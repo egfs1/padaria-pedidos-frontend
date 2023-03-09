@@ -66,7 +66,7 @@ export function OrderQuantitative() {
                     <tr>
                         <th>Total</th>
                         <th></th>
-                        <th>{quantitatives.reduce((total, current) => total + current.value, 0)}</th>
+                        <th>{quantitatives.reduce((total, current) => total + current.value, 0).toFixed(2)}</th>
                     </tr>
                 </>
                 }
