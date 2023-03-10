@@ -5,9 +5,7 @@
 
 
 <div align="center">
-    <img src="./.github/preview1.jpg" style="width: 160px"/>
-    <img src="./.github/preview2.jpg" style="width: 160px"/>
-    <img src="./.github/preview3.jpg" style="width: 160px"/>
+    <img src="./.github/preview.png"/>
 </div>
 
 <br/>
